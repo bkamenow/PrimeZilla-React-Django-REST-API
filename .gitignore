@@ -54,4 +54,4 @@ tmp_email/
 /.idea
 /frontend/.env
 /backend/.venv
-
+**/__pycache__/
