@@ -46,7 +46,8 @@ INSTALLED_APPS = [
 
 CORS_ALLOWED_ORIGINS = ['http://localhost:5173']
 
-AUTH_USER_MODEL = 'accounts.MyUser'
+CORS_ALLOW_CREDENTIALS = True
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -90,7 +91,17 @@ DATABASES = {
     }
 }
 
+# My User
+AUTH_USER_MODEL = 'accounts.MyUser'
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+}
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
