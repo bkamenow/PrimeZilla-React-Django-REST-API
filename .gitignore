@@ -55,3 +55,5 @@ tmp_email/
 /frontend/.env
 /backend/.venv
 **/__pycache__/
+
+/.vscode
