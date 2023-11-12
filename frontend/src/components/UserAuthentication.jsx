@@ -1,6 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
-
+import React, { useState, useEffect } from "react";
 import axios from "../services/axiosConfig";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -28,15 +26,18 @@ export default function UserAuthentication({
     const [password, setPassword] = useState("");
 
     useEffect(() => {
-        client
-            .get("/api/user")
-            .then(function (res) {
-                setCurrentUser(true);
-            })
-            .catch(function (error) {
-                setCurrentUser(false);
-            });
+        const token = localStorage.getItem("token");
+        if (token) {
+            // If a token is present, set the user as authenticated
+            setCurrentUser(true);
+        }
     }, []);
+
+    function storeTokenAndSetUser(res) {
+        const token = res.data.token;
+        localStorage.setItem("token", token);
+        setCurrentUser(true);
+    }
 
     function submitRegistration(e) {
         e.preventDefault();
@@ -46,37 +47,26 @@ export default function UserAuthentication({
                 username: username,
                 password: password,
             })
-            .then(function (res) {
+            .then((res) => {
                 client
-                    .post("/api/login", {
-                        email: email,
-                        password: password,
-                    })
-                    .then(function (res) {
-                        setCurrentUser(true);
-                    });
+                    .post("/api/login", { email, password })
+                    .then(storeTokenAndSetUser);
             });
     }
 
     function submitLogin(e) {
         e.preventDefault();
         client
-            .post("/api/login", {
-                email: email,
-                password: password,
-            })
-            .then(function (res) {
-                setCurrentUser(true);
-            });
+            .post("/api/login", { email, password })
+            .then(storeTokenAndSetUser);
     }
 
     function submitLogout(e) {
         e.preventDefault();
-        client
-            .post("/api/logout", { withCredentials: true })
-            .then(function (res) {
-                setCurrentUser(false);
-            });
+        localStorage.removeItem("token");
+        client.post("/api/logout", { withCredentials: true }).then(() => {
+            setCurrentUser(false);
+        });
     }
 
     if (currentUser) {

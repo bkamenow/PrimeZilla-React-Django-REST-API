@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from .serializers import UserLoginSerializer, UserRegisterSerializer, UserSerializer
 from rest_framework import permissions, status
 from .validators import custom_validation, validate_email, validate_password
+import jwt
+import datetime
 
 
 class UserRegister(APIView):
@@ -31,10 +33,23 @@ class UserLogin(APIView):
         assert validate_email(data)
         assert validate_password(data)
         serializer = UserLoginSerializer(data=data)
+
         if serializer.is_valid(raise_exception=True):
             user = serializer.check_user(data)
             login(request, user)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+
+            # Create a JWT token
+            token_payload = {
+                'user_id': user.user_id,
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60)
+            }
+            token = jwt.encode(
+                token_payload, 'django-insecure-9p3)vvpdl4%4hl56kz%7qq4ptn-rfe-!_6#qat6!v5zp7!^gud', algorithm='HS256')
+
+            # Return the token in the response
+            return Response({'token': token}, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserLogout(APIView):
