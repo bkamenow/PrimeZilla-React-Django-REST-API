@@ -70,3 +70,85 @@ span.input-group-addon {
 .form-header {
     margin-bottom: 20px;
 }
+/* Footer */
+.dark-footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Contacts */
+.container-contacts {
+        margin: 0 auto;
+}
+
+.content-container {
+    display: flex;
+    align-items: center;
+    background-color: #f4f4f4;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 0 50px 0 50px;
+
+}
+
+
+.container-contacts h1 {
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    text-align: center;
+}
+
+.contact-info {
+    flex: 0 0 calc(50% - 10px);
+    margin-right: 20px;
+    padding: 20px;
+    
+}
+
+.contact-form {
+    flex: 0 0 calc(50% - 10px);
+    margin-top: 20px;
+    padding: 20px;
+
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-group button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-group button:hover {
+    background-color: #555;
+}
+
+/* Carousel */
+
+.w-100 {
+    max-width: 300px;
+    margin-left: 41%;
+    margin-bottom: 150px;
+}

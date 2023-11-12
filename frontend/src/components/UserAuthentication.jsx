@@ -133,11 +133,11 @@ export default function UserAuthentication({
                                     }
                                 />
                             </Form.Group>
-                            <Button variant='primary' type='submit'>
+                            <Button variant='dark' type='submit'>
                                 Submit
                             </Button>
                             <Button
-                                variant='primary'
+                                variant='dark'
                                 type='button'
                                 onClick={onClose}
                             >
@@ -179,11 +179,11 @@ export default function UserAuthentication({
                                     }
                                 />
                             </Form.Group>
-                            <Button variant='primary' type='submit'>
+                            <Button variant='dark' type='submit'>
                                 Submit
                             </Button>
                             <Button
-                                variant='primary'
+                                variant='dark'
                                 type='button'
                                 onClick={onClose}
                             >
