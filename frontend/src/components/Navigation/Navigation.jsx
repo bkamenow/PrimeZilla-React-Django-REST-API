@@ -6,10 +6,20 @@ import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import RegisterUser from "../UserAuthentication/RegisterUser";
 import LoginUser from "../UserAuthentication/LoginUser";
+import CreateShop from "../Shops/CreateShop";
 
 export default function Navigation() {
     const [showRegister, setShowRegister] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
+    const [showCreateShop, setShowCreateShop] = useState(false);
+
+    const createShopClickHandler = () => {
+        setShowCreateShop(true);
+    };
+
+    const hideCreateShop = () => {
+        setShowCreateShop(false);
+    };
 
     const registerUserClickHandler = () => {
         setShowRegister(true);
@@ -42,6 +52,14 @@ export default function Navigation() {
                     // onUserLogin={loginUserHandler}
                 />
             )}
+
+            {showCreateShop && (
+                <CreateShop
+                    onClose={hideCreateShop}
+                    // onUserLogin={loginUserHandler}
+                />
+            )}
+
             <Navbar bg='dark' variant='dark'>
                 <Container>
                     <Navbar.Brand href='#home'>
@@ -71,7 +89,10 @@ export default function Navigation() {
                             <NavDropdown.Item href='#action/3.1'>
                                 Profile Details
                             </NavDropdown.Item>
-                            <NavDropdown.Item href='#action/3.2'>
+                            <NavDropdown.Item
+                                onClick={createShopClickHandler}
+                                href='#action/3.2'
+                            >
                                 Create Shop
                             </NavDropdown.Item>
                             <NavDropdown.Divider />
