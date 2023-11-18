@@ -28,7 +28,6 @@ export default function UserAuthentication({
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) {
-            // If a token is present, set the user as authenticated
             setCurrentUser(true);
         }
     }, []);
