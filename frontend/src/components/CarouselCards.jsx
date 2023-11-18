@@ -8,7 +8,7 @@ export default function CarouselCards() {
                 <Carousel.Item>
                     <img
                         className='d-block w-100'
-                        src='/images/game.png'
+                        src='images/game.png'
                         alt='First slide'
                     />
                     <Carousel.Caption>

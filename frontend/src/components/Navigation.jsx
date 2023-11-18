@@ -19,10 +19,7 @@ export default function Navigation() {
         setShowAuthModal(false);
     };
     const handleLogout = () => {
-        // Implement your logout logic here
-        // For example, clear the token and update the user state
         localStorage.removeItem("token");
-        // Add any additional logic to update the user state if needed
     };
 
     return (
@@ -34,8 +31,8 @@ export default function Navigation() {
                     </Navbar.Brand>
                     <Nav className='me-auto'>
                         <Nav.Link href='#home'>Home</Nav.Link>
-                        <Nav.Link href='#features'>Features</Nav.Link>
-                        <Nav.Link href='#pricing'>Pricing</Nav.Link>
+                        <Nav.Link href='#features'>Shops</Nav.Link>
+                        <Nav.Link href='#pricing'>Contact Us</Nav.Link>
                     </Nav>
                     <Nav>
                         <Nav.Link onClick={handleLoginClick}>Login</Nav.Link>

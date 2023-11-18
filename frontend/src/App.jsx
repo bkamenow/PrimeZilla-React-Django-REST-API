@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import Navigation from "./components/Navigation";
 import Main from "./components/Main";
 import Header from "./components/Header";
+import ShopsList from "./components/ShopsList";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
             <CarouselCards />
             <Contacts />
             <Footer />
+            <ShopsList />
         </div>
     );
 }
