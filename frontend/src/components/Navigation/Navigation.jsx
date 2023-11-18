@@ -79,17 +79,17 @@ export default function Navigation() {
                             Register
                         </Nav.Link>
                         <NavDropdown title='Profile' id='basic-nav-dropdown'>
-                            <NavDropdown.Item href='#action/3.1'>
+                            <NavDropdown.Item href='#profile-details'>
                                 Profile Details
                             </NavDropdown.Item>
                             <NavDropdown.Item
                                 onClick={createShopClickHandler}
-                                href='#action/3.2'
+                                href='#create-shop'
                             >
                                 Create Shop
                             </NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href='#action/3.4'>
+                            <NavDropdown.Item href='#logout'>
                                 Logout
                             </NavDropdown.Item>
                         </NavDropdown>
