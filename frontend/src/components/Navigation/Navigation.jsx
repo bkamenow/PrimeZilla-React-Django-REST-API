@@ -56,6 +56,9 @@ export default function Navigation() {
                         <Nav.Link as={Link} to='/shops-list'>
                             Shops
                         </Nav.Link>
+                        <Nav.Link as={Link} to='/all-items'>
+                            All Items
+                        </Nav.Link>
                     </Nav>
                     <Nav>
                         <Nav.Link onClick={loginUserClickHandler}>
