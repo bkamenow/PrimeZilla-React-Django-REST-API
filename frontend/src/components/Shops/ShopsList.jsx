@@ -33,7 +33,8 @@ export default function ShopsList() {
                         <Card.Body>
                             <Card.Title>{shop.name}</Card.Title>
                             <Card.Text>
-                                <h6>{shop.type}</h6>
+                                <b>{shop.type}</b>
+                                <br />
                                 {shop.description}
                             </Card.Text>
                             <Button variant='primary'>View Shop</Button>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { createShop } from "../../services/shopService";
 
 export default function CreateShop({ onClose }) {
     const [formData, setFormData] = useState({
@@ -19,33 +20,10 @@ export default function CreateShop({ onClose }) {
         e.preventDefault();
 
         try {
-            const response = await fetch("http://localhost:8000/api/shops/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    name: formData.name,
-                    image_url: formData.image_url, // Ensure this field matches your Django model
-                    type: formData.type,
-                    description: formData.description,
-                }),
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json(); // Parse the error response
-                console.error("Error creating shop:", errorData);
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            // Assuming the response contains the created shop data
-            const createdShop = await response.json();
-            console.log("Shop created:", createdShop);
-
-            // Optionally, you can perform additional actions, such as closing the modal
+            const createdShop = await createShop(formData);
             onClose();
         } catch (error) {
-            console.error("General error creating shop:", error.message);
+            console.log(error);
         }
     };
 
