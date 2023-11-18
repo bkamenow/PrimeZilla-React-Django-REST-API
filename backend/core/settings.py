@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "fsp_db",
+        "NAME": "ShopZilla_DB",
         "USER": "postgres",
         "PASSWORD": "bobi123",
         "HOST": "127.0.0.1",

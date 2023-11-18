@@ -1,22 +1,37 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function ShopsList() {
+    const [shops, setShops] = useState([]);
+
+    useEffect(() => {
+        const fetchShops = async () => {
+            const response = await axios.get("/api/shops/");
+            setShops(response.data);
+        };
+
+        fetchShops();
+    }, []);
+
     return (
         <div className='background'>
             <div className='background-overlay'></div>
             <div className='shop-list-container'>
-                <Card style={{ width: "18rem" }}>
-                    <Card.Img variant='top' src='images/game.png' />
-                    <Card.Body>
-                        <Card.Title>Card Title</Card.Title>
-                        <Card.Text>
-                            Some quick example text to build on the card title
-                            and make up the bulk of the card's content.
-                        </Card.Text>
-                        <Button variant='primary'>Go somewhere</Button>
-                    </Card.Body>
-                </Card>
+                {shops.map((shop) => (
+                    <Card style={{ width: "18rem" }} key={shop.id}>
+                        <Card.Img variant='top' src='images/game.png' />
+                        <Card.Body>
+                            <Card.Title>{shop.name}</Card.Title>
+                            <Card.Text>
+                                <h5>{shop.type}</h5>
+                                <p>{shop.description}</p>
+                            </Card.Text>
+                            <Button variant='primary'>View Shop</Button>
+                        </Card.Body>
+                    </Card>
+                ))}
             </div>
         </div>
     );
