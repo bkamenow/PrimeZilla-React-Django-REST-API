@@ -133,16 +133,18 @@ export default function UserAuthentication({
                                     }
                                 />
                             </Form.Group>
-                            <Button variant='dark' type='submit'>
-                                Submit
-                            </Button>
-                            <Button
-                                variant='dark'
-                                type='button'
-                                onClick={onClose}
-                            >
-                                Close
-                            </Button>
+                            <div className='form-btns'>
+                                <Button variant='dark' type='submit'>
+                                    Submit
+                                </Button>
+                                <Button
+                                    variant='dark'
+                                    type='button'
+                                    onClick={onClose}
+                                >
+                                    Close
+                                </Button>
+                            </div>
                         </Form>
                     </div>
                 </div>
@@ -179,16 +181,18 @@ export default function UserAuthentication({
                                     }
                                 />
                             </Form.Group>
-                            <Button variant='dark' type='submit'>
-                                Submit
-                            </Button>
-                            <Button
-                                variant='dark'
-                                type='button'
-                                onClick={onClose}
-                            >
-                                Close
-                            </Button>
+                            <div className='form-btns'>
+                                <Button variant='dark' type='submit'>
+                                    Submit
+                                </Button>
+                                <Button
+                                    variant='dark'
+                                    type='button'
+                                    onClick={onClose}
+                                >
+                                    Close
+                                </Button>
+                            </div>
                         </Form>
                     </div>
                 </div>

@@ -267,3 +267,16 @@ span.input-group-addon {
     justify-content: center;
     text-align: center;
 }
+
+/* Forms */
+
+.form-box {
+    width: 300px;
+
+}
+
+.form-btns {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}

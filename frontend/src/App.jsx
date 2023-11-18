@@ -6,6 +6,7 @@ import Navigation from "./components/Navigation";
 import Main from "./components/Main";
 import Header from "./components/Header";
 import ShopsList from "./components/ShopsList";
+import ShopItemsList from "./components/ShopItemsList";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
             <Contacts />
             <Footer />
             <ShopsList />
+            <ShopItemsList />
         </div>
     );
 }
