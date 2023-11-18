@@ -53,19 +53,12 @@ export default function Navigation() {
                 />
             )}
 
-            {showCreateShop && (
-                <CreateShop
-                    onClose={hideCreateShop}
-                    // onUserLogin={loginUserHandler}
-                />
-            )}
+            {showCreateShop && <CreateShop onClose={hideCreateShop} />}
 
             <Navbar bg='dark' variant='dark'>
                 <Container>
-                    <Navbar.Brand href='#home'>
-                        <Link to='/'>
-                            <img src='/public/images/logo.png' alt='' />
-                        </Link>
+                    <Navbar.Brand as={Link} to='/'>
+                        <img src='/public/images/logo.png' alt='logo' />
                     </Navbar.Brand>
                     <Nav className='me-auto'>
                         <Nav.Link as={Link} to='/'>

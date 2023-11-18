@@ -7,6 +7,10 @@ axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.withCredentials = true;
 
+const client = axios.create({
+    baseURL: "http://127.0.0.1:8000",
+});
+
 export default function LoginUser({ onClose }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -22,6 +26,13 @@ export default function LoginUser({ onClose }) {
             setCurrentUser(true);
         }
     }, []);
+
+    function submitLogin(e) {
+        e.preventDefault();
+        client
+            .post("/api/accounts/login", { email, password })
+            .then(storeTokenAndSetUser);
+    }
 
     return (
         <div className='overlay' onClick={onClose}>

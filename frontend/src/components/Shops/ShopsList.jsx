@@ -7,12 +7,14 @@ export default function ShopsList() {
     const [shops, setShops] = useState([]);
 
     useEffect(() => {
-        const fetchShops = async () => {
-            const response = await axios.get("/api/shops/");
-            setShops(response.data);
-        };
-
-        fetchShops();
+        axios
+            .get("http://127.0.0.1:8000/api/shops/")
+            .then((response) => {
+                setShops(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }, []);
 
     return (
@@ -21,12 +23,16 @@ export default function ShopsList() {
             <div className='shop-list-container'>
                 {shops.map((shop) => (
                     <Card style={{ width: "18rem" }} key={shop.id}>
-                        <Card.Img variant='top' src='images/game.png' />
+                        <Card.Img
+                            variant='top'
+                            src={shop.image_url}
+                            alt={shop.name}
+                        />
                         <Card.Body>
                             <Card.Title>{shop.name}</Card.Title>
                             <Card.Text>
-                                <h5>{shop.type}</h5>
-                                <p>{shop.description}</p>
+                                <h6>{shop.type}</h6>
+                                {shop.description}
                             </Card.Text>
                             <Button variant='primary'>View Shop</Button>
                         </Card.Body>
