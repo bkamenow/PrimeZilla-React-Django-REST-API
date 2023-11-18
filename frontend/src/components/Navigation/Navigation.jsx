@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import NavDropdown from "react-bootstrap/NavDropdown";
 import RegisterUser from "../UserAuthentication/RegisterUser";
 import LoginUser from "../UserAuthentication/LoginUser";
 
@@ -63,7 +64,18 @@ export default function Navigation() {
                         <Nav.Link onClick={registerUserClickHandler}>
                             Register
                         </Nav.Link>
-                        <Nav.Link>Logout</Nav.Link>
+                        <NavDropdown title='Profile' id='basic-nav-dropdown'>
+                            <NavDropdown.Item href='#action/3.1'>
+                                Profile Details
+                            </NavDropdown.Item>
+                            <NavDropdown.Item href='#action/3.2'>
+                                Create Shop
+                            </NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item href='#action/3.4'>
+                                Logout
+                            </NavDropdown.Item>
+                        </NavDropdown>
                     </Nav>
                 </Container>
             </Navbar>
