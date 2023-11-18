@@ -34,12 +34,12 @@ span.input-group-addon {
     align-items: center;
     justify-content: center;
     height: 100vh;
-   
+
 }
 
 .user-buttons {
     margin-top: 20px;
-    
+
 }
 
 .overlay {
@@ -59,17 +59,18 @@ span.input-group-addon {
 
 .form-box {
     background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .form-header {
     margin-bottom: 20px;
 }
+
 /* Footer */
 .dark-footer {
     background-color: #333;
@@ -80,15 +81,15 @@ span.input-group-addon {
 
 /* Contacts */
 .container-contacts {
-        margin: 0 auto;
+    margin: 0 auto;
 }
 
 .content-container {
     display: flex;
     align-items: center;
     background-color: #f4f4f4;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 0 50px 0 50px;
 
 }
@@ -105,7 +106,7 @@ span.input-group-addon {
     flex: 0 0 calc(50% - 10px);
     margin-right: 20px;
     padding: 20px;
-    
+
 }
 
 .contact-form {
@@ -153,6 +154,20 @@ span.input-group-addon {
     margin-bottom: 150px;
 }
 
+.carousel-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+
 /* Header */
 
 .header-container {
@@ -190,7 +205,9 @@ span.input-group-addon {
     text-align: center;
     width: 30%
 }
-.welcome-message h2, .welcome-message h3 {
+
+.welcome-message h2,
+.welcome-message h3 {
     color: #ffffff;
     font-size: 250%;
     font-size: 55px;
