@@ -1,20 +1,22 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { getAllShops } from "../../services/shopService";
 
 export default function ShopsList() {
     const [shops, setShops] = useState([]);
 
     useEffect(() => {
-        axios
-            .get("http://127.0.0.1:8000/api/shops/")
-            .then((response) => {
-                setShops(response.data);
-            })
-            .catch((error) => {
+        const fetchData = async () => {
+            try {
+                const data = await getAllShops();
+                setShops(data);
+            } catch (error) {
                 console.log(error);
-            });
+            }
+        };
+
+        fetchData();
     }, []);
 
     return (
