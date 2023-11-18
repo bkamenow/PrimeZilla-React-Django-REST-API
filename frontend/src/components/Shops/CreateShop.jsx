@@ -20,10 +20,10 @@ export default function CreateShop({ onClose }) {
         e.preventDefault();
 
         try {
-            const createdShop = await createShop(formData);
+            await createShop(formData);
             onClose();
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     };
 

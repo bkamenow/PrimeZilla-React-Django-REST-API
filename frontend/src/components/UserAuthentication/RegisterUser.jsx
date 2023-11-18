@@ -1,12 +1,24 @@
-import React, { useState, useEffect } from "react";
-import axios from "../../services/axiosConfig";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { registerUser } from "../../services/userService";
 
 export default function RegisterUser({ onClose }) {
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+
+    const submitRegistration = async (e) => {
+        e.preventDefault();
+
+        try {
+            await registerUser(email, username, password);
+            onClose();
+        } catch (error) {
+            console.error(error.message);
+        }
+    };
+
     const handleFormClick = (e) => {
         e.stopPropagation();
     };
@@ -16,7 +28,7 @@ export default function RegisterUser({ onClose }) {
                 <div className='form-header'>
                     <h3>Register</h3>
                 </div>
-                <Form onSubmit={(e) => submitRegistration(e)}>
+                <Form onSubmit={submitRegistration}>
                     <Form.Group className='mb-3' controlId='formBasicEmail'>
                         <Form.Label>Email address</Form.Label>
                         <Form.Control
