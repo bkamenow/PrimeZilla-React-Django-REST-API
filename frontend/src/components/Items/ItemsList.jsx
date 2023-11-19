@@ -31,11 +31,8 @@ export default function ItemsList() {
                         />
                         <Card.Body>
                             <Card.Title>{item.name}</Card.Title>
-                            <Card.Text>
-                                <b>{item.type}</b>
-                                <br />
-                                {item.description}
-                            </Card.Text>
+                            <Card.Text>{item.description}</Card.Text>
+                            <Card.Text>Shop: {item.shop_name}</Card.Text>
                             <Card.Text>{item.price}$</Card.Text>
                             <Button variant='dark'>Add to Cart</Button>
                         </Card.Body>
