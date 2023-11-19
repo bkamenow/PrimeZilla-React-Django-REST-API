@@ -19,7 +19,8 @@ class Item(models.Model):
     image_url = models.URLField()
     description = models.TextField()
     price = models.FloatField()
-    shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
+    shop = models.ForeignKey(
+        Shop, on_delete=models.CASCADE, related_name='items')
 
     def __str__(self):
         return self.name

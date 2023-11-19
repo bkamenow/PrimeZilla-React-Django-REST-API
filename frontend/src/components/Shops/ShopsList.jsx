@@ -2,6 +2,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import React, { useState, useEffect } from "react";
 import { getAllShops } from "../../services/shopService";
+import { Link } from "react-router-dom";
 
 export default function ShopsList() {
     const [shops, setShops] = useState([]);
@@ -37,7 +38,17 @@ export default function ShopsList() {
                                 <br />
                                 {shop.description}
                             </Card.Text>
-                            <Button variant='dark'>View Shop</Button>
+                            {shop.items && shop.items.length > 0 ? (
+                                <Button
+                                    variant='dark'
+                                    as={Link}
+                                    to={`/items/${shop.id}`}
+                                >
+                                    View Shop
+                                </Button>
+                            ) : (
+                                <Button variant='dark'>Comming Soon</Button>
+                            )}
                         </Card.Body>
                     </Card>
                 ))}

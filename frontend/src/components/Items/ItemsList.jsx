@@ -35,6 +35,7 @@ export default function ItemsList() {
                             <Card.Text>Shop: {item.shop_name}</Card.Text>
                             <Card.Text>{item.price}$</Card.Text>
                             <Button variant='dark'>Add to Cart</Button>
+                            <Button variant='dark'>Add to favorite</Button>
                         </Card.Body>
                     </Card>
                 ))}

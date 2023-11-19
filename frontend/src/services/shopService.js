@@ -26,3 +26,13 @@ export const createShop = async (formData) => {
         throw error;
     }
 };
+
+export const getShopItems = async (shopId) => {
+    try {
+        const response = await client.get(`/shops/${shopId}/items/`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching shop items:", error);
+        throw error;
+    }
+};

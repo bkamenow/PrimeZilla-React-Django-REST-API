@@ -21,3 +21,11 @@ class ItemList(generics.ListCreateAPIView):
 class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
+
+
+class ItemListForShop(generics.ListAPIView):
+    serializer_class = ItemSerializer
+
+    def get_queryset(self):
+        shop_id = self.kwargs['pk']
+        return Item.objects.filter(shop_id=shop_id)
