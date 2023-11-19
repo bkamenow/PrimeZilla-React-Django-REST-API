@@ -5,6 +5,7 @@ import Navigation from "./components/Navigation/Navigation";
 import ShopsList from "./components/Shops/ShopsList";
 import ShopItemsList from "./components/Shops/ShopItemsList";
 import Home from "./components/Home";
+import ItemsList from "./components/Items/ItemsList";
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                 <Route path='/' element={<Home />} />
                 <Route path='/shops-list' element={<ShopsList />} />
                 <Route path='/items/:shopId' element={<ShopItemsList />} />
+                <Route path='/all-items' element={<ItemsList />} />
             </Routes>
             <Footer />
         </div>

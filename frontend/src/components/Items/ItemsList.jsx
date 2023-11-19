@@ -1,16 +1,16 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import React, { useState, useEffect } from "react";
-import { getAllShops } from "../../services/shopService";
+import { getAllItems } from "../../services/itemService";
 
-export default function ShopsList() {
-    const [shops, setShops] = useState([]);
+export default function ItemsList() {
+    const [items, setItems] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await getAllShops();
-                setShops(data);
+                const data = await getAllItems();
+                setItems(data);
             } catch (error) {
                 console.log(error);
             }
@@ -18,26 +18,26 @@ export default function ShopsList() {
 
         fetchData();
     }, []);
-
     return (
         <div className='background'>
             <div className='background-overlay'></div>
             <div className='shop-list-container items'>
-                {shops.map((shop) => (
-                    <Card style={{ width: "18rem" }} key={shop.id}>
+                {items.map((item) => (
+                    <Card style={{ width: "18rem" }} key={item.id}>
                         <Card.Img
                             variant='top'
-                            src={shop.image_url}
-                            alt={shop.name}
+                            src={item.image_url}
+                            alt={item.name}
                         />
                         <Card.Body>
-                            <Card.Title>{shop.name}</Card.Title>
+                            <Card.Title>{item.name}</Card.Title>
                             <Card.Text>
-                                <b>{shop.type}</b>
+                                <b>{item.type}</b>
                                 <br />
-                                {shop.description}
+                                {item.description}
                             </Card.Text>
-                            <Button variant='dark'>View Shop</Button>
+                            <Card.Text>{item.price}$</Card.Text>
+                            <Button variant='dark'>Add to Cart</Button>
                         </Card.Body>
                     </Card>
                 ))}
