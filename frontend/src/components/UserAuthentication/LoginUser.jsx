@@ -1,37 +1,29 @@
-import React, { useState, useEffect } from "react";
-import axios from "../../services/axiosConfig";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-
-axios.defaults.xsrfCookieName = "csrftoken";
-axios.defaults.xsrfHeaderName = "X-CSRFToken";
-axios.defaults.withCredentials = true;
-
-const client = axios.create({
-    baseURL: "http://127.0.0.1:8000",
-});
+import { loginUser } from "../../services/userService";
+import useAuth from "../../utils/useAuth";
 
 export default function LoginUser({ onClose }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const { login } = useAuth();
 
     const handleFormClick = (e) => {
         e.stopPropagation();
     };
 
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            // If a token is present, set the user as authenticated
-            setCurrentUser(true);
-        }
-    }, []);
-
     function submitLogin(e) {
         e.preventDefault();
-        client
-            .post("/api/accounts/login", { email, password })
-            .then(storeTokenAndSetUser);
+        loginUser(email, password)
+            .then((response) => {
+                localStorage.setItem("token", response.token);
+                login();
+                onClose();
+            })
+            .catch((error) => {
+                console.error("Login error:", error.message);
+            });
     }
 
     return (
@@ -40,7 +32,7 @@ export default function LoginUser({ onClose }) {
                 <div className='form-header'>
                     <h3>Login</h3>
                 </div>
-                <Form onSubmit={(e) => submitLogin(e)}>
+                <Form onSubmit={submitLogin}>
                     <Form.Group className='mb-3' controlId='formBasicEmail'>
                         <Form.Label>Email address</Form.Label>
                         <Form.Control

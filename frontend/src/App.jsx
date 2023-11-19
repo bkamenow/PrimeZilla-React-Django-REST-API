@@ -5,7 +5,6 @@ import Navigation from "./components/Navigation/Navigation";
 import ShopsList from "./components/Shops/ShopsList";
 import ShopItemsList from "./components/Shops/ShopItemsList";
 import Home from "./components/Home";
-import CreateShop from "./components/Shops/CreateShop";
 
 function App() {
     return (

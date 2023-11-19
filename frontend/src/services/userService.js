@@ -22,3 +22,30 @@ export const registerUser = async (email, username, password) => {
         throw error;
     }
 };
+
+export const loginUser = async (email, password) => {
+    try {
+        const response = await client.post("/accounts/login", {
+            email,
+            password,
+        });
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+    } catch (error) {
+        console.error("Error logging in:", error.message);
+        throw error;
+    }
+};
+
+export const logoutUser = async () => {
+    try {
+        await client.post("/accounts/logout");
+
+        localStorage.removeItem("token");
+    } catch (error) {
+        console.error("Logout error:", error.message);
+    }
+};

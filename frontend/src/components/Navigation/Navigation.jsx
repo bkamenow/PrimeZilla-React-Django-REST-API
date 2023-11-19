@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { logoutUser } from "../../services/userService";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
@@ -7,11 +8,15 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import RegisterUser from "../UserAuthentication/RegisterUser";
 import LoginUser from "../UserAuthentication/LoginUser";
 import CreateShop from "../Shops/CreateShop";
+import useAuth from "../../utils/useAuth";
 
 export default function Navigation() {
     const [showRegister, setShowRegister] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
     const [showCreateShop, setShowCreateShop] = useState(false);
+    const { currentUser, logout } = useAuth();
+
+    useEffect(() => {}, [currentUser]);
 
     const createShopClickHandler = () => {
         setShowCreateShop(true);
@@ -37,21 +42,18 @@ export default function Navigation() {
         setShowLogin(false);
     };
 
+    const handleLogout = () => {
+        logoutUser().then(() => {
+            localStorage.removeItem("token");
+            logout();
+        });
+    };
+
     return (
         <>
-            {showRegister && (
-                <RegisterUser
-                    onClose={hideUserRegister}
-                    // onUserRegister={registerUserHandler}
-                />
-            )}
+            {showRegister && <RegisterUser onClose={hideUserRegister} />}
 
-            {showLogin && (
-                <LoginUser
-                    onClose={hideUserLogin}
-                    // onUserLogin={loginUserHandler}
-                />
-            )}
+            {showLogin && <LoginUser onClose={hideUserLogin} />}
 
             {showCreateShop && <CreateShop onClose={hideCreateShop} />}
 
@@ -72,27 +74,38 @@ export default function Navigation() {
                         </Nav.Link>
                     </Nav>
                     <Nav>
-                        <Nav.Link onClick={loginUserClickHandler}>
-                            Login
-                        </Nav.Link>
-                        <Nav.Link onClick={registerUserClickHandler}>
-                            Register
-                        </Nav.Link>
-                        <NavDropdown title='Profile' id='basic-nav-dropdown'>
-                            <NavDropdown.Item href='#profile-details'>
-                                Profile Details
-                            </NavDropdown.Item>
-                            <NavDropdown.Item
-                                onClick={createShopClickHandler}
-                                href='#create-shop'
+                        {currentUser ? (
+                            <NavDropdown
+                                title='Profile'
+                                id='basic-nav-dropdown'
                             >
-                                Create Shop
-                            </NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href='#logout'>
-                                Logout
-                            </NavDropdown.Item>
-                        </NavDropdown>
+                                <NavDropdown.Item href='#profile-details'>
+                                    Profile Details
+                                </NavDropdown.Item>
+                                <NavDropdown.Item
+                                    onClick={createShopClickHandler}
+                                    href='#create-shop'
+                                >
+                                    Create Shop
+                                </NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item
+                                    href='#logout'
+                                    onClick={handleLogout}
+                                >
+                                    Logout
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                        ) : (
+                            <>
+                                <Nav.Link onClick={loginUserClickHandler}>
+                                    Login
+                                </Nav.Link>
+                                <Nav.Link onClick={registerUserClickHandler}>
+                                    Register
+                                </Nav.Link>
+                            </>
+                        )}
                     </Nav>
                 </Container>
             </Navbar>
