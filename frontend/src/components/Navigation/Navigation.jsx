@@ -1,19 +1,24 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
 import { logoutUser } from "../../services/userService";
+
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
+
 import RegisterUser from "../UserAuthentication/RegisterUser";
 import LoginUser from "../UserAuthentication/LoginUser";
 import CreateShop from "../Shops/CreateShop";
 import useAuth from "../../utils/useAuth";
+import UserDetails from "../UserDetails/UserDetails";
 
 export default function Navigation() {
     const [showRegister, setShowRegister] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
     const [showCreateShop, setShowCreateShop] = useState(false);
+    const [showProfileDetails, setShowProfileDetails] = useState(false);
     const { currentUser, logout } = useAuth();
 
     useEffect(() => {}, [currentUser]);
@@ -24,6 +29,14 @@ export default function Navigation() {
 
     const hideCreateShop = () => {
         setShowCreateShop(false);
+    };
+
+    const userDetailsClickHandler = () => {
+        setShowProfileDetails(true);
+    };
+
+    const hideProfileDetails = () => {
+        setShowProfileDetails(false);
     };
 
     const registerUserClickHandler = () => {
@@ -57,6 +70,8 @@ export default function Navigation() {
 
             {showCreateShop && <CreateShop onClose={hideCreateShop} />}
 
+            {showProfileDetails && <UserDetails onClose={hideProfileDetails} />}
+
             <Navbar bg='dark' variant='dark'>
                 <Container>
                     <Navbar.Brand as={Link} to='/'>
@@ -79,7 +94,10 @@ export default function Navigation() {
                                 title='Profile'
                                 id='basic-nav-dropdown'
                             >
-                                <NavDropdown.Item href='#profile-details'>
+                                <NavDropdown.Item
+                                    href='#profile-details'
+                                    onClick={userDetailsClickHandler}
+                                >
                                     Profile Details
                                 </NavDropdown.Item>
                                 <NavDropdown.Item
