@@ -1,13 +1,8 @@
 import client from "./axiosConfig";
 
 export const getAllShops = async () => {
-    try {
-        const response = await client.get("/shops/");
-        return response.data;
-    } catch (error) {
-        console.error("Error fetching shops:", error);
-        throw error;
-    }
+    const response = await client.get("/shops/");
+    return response.data;
 };
 
 export const createShop = async (formData) => {
@@ -28,11 +23,6 @@ export const createShop = async (formData) => {
 };
 
 export const getShopItems = async (shopId) => {
-    try {
-        const response = await client.get(`/shops/${shopId}/items/`);
-        return response.data;
-    } catch (error) {
-        console.error("Error fetching shop items:", error);
-        throw error;
-    }
+    const response = await client.get(`/shops/${shopId}/items/`);
+    return response.data;
 };

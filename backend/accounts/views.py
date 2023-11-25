@@ -8,6 +8,8 @@ from .validators import custom_validation, validate_email, validate_password
 import jwt
 import datetime
 
+from .models import AppUser
+
 
 class UserRegister(APIView):
     permission_classes = (permissions.AllowAny,)
@@ -67,4 +69,11 @@ class UserView(APIView):
 
     def get(self, request):
         serializer = UserSerializer(request.user)
+        return Response({'user': serializer.data}, status=status.HTTP_200_OK)
+
+
+class UserDetailsView(APIView):
+    def get(self, request, pk):
+        user = AppUser.objects.get(pk=pk)
+        serializer = UserSerializer(user)
         return Response({'user': serializer.data}, status=status.HTTP_200_OK)

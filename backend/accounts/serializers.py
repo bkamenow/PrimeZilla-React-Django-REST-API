@@ -33,4 +33,4 @@ class UserLoginSerializer(Serializer):
 class UserSerializer(ModelSerializer):
     class Meta:
         model = UserModel
-        fields = ('email',)
+        fields = ('user_id', 'email', 'username',)
