@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { logoutUser } from "../../services/userService";
+import { logoutUser } from "../../services/authService";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
@@ -14,9 +14,9 @@ export default function Navigation() {
     const [showRegister, setShowRegister] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
     const [showCreateShop, setShowCreateShop] = useState(false);
-    const { currentUser, logout } = useAuth();
+    const { isAuthenticated, logout, login } = useAuth();
 
-    useEffect(() => {}, [currentUser]);
+    useEffect(() => {}, [isAuthenticated]);
 
     const createShopClickHandler = () => {
         setShowCreateShop(true);
@@ -42,6 +42,10 @@ export default function Navigation() {
         setShowLogin(false);
     };
 
+    const handleLogin = () => {
+        login();
+    };
+
     const handleLogout = () => {
         logoutUser().then(() => {
             localStorage.removeItem("token");
@@ -53,7 +57,9 @@ export default function Navigation() {
         <>
             {showRegister && <RegisterUser onClose={hideUserRegister} />}
 
-            {showLogin && <LoginUser onClose={hideUserLogin} />}
+            {showLogin && (
+                <LoginUser onClose={hideUserLogin} onLogin={handleLogin} />
+            )}
 
             {showCreateShop && <CreateShop onClose={hideCreateShop} />}
 
@@ -74,7 +80,7 @@ export default function Navigation() {
                         </Nav.Link>
                     </Nav>
                     <Nav>
-                        {currentUser ? (
+                        {isAuthenticated ? (
                             <NavDropdown
                                 title='Profile'
                                 id='basic-nav-dropdown'

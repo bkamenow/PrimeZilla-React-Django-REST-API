@@ -3,7 +3,7 @@ import "./App.css";
 import Footer from "./components/Footer/Footer";
 import Navigation from "./components/Navigation/Navigation";
 import ShopsList from "./components/Shops/ShopsList";
-import Home from "./components/Home";
+import Home from "./components/Home/Home";
 import ItemsList from "./components/Items/ItemsList";
 import CurrentShopItemsList from "./components/Items/currentShopItemsList";
 

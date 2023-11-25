@@ -1,29 +1,29 @@
 import { useState, useEffect } from "react";
 
 const useAuth = () => {
-    const [currentUser, setCurrentUser] = useState(false);
+    const [isAuthenticated, setAuthentication] = useState(false);
 
     useEffect(() => {
         const checkLoginStatus = async () => {
             const token = localStorage.getItem("token");
             if (token) {
-                setCurrentUser(true);
+                setAuthentication(true);
             }
         };
 
         checkLoginStatus();
-    }, [setCurrentUser]);
+    }, [setAuthentication]);
 
     const login = () => {
-        setCurrentUser(true);
+        setAuthentication(true);
     };
 
     const logout = () => {
-        setCurrentUser(false);
+        setAuthentication(false);
     };
 
     return {
-        currentUser,
+        isAuthenticated,
         login,
         logout,
     };

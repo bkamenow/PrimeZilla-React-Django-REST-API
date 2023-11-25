@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { loginUser } from "../../services/userService";
+import { loginUser } from "../../services/authService";
 import useAuth from "../../utils/useAuth";
 
-export default function LoginUser({ onClose }) {
+export default function LoginUser({ onClose, onLogin }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { login } = useAuth();
@@ -18,7 +18,8 @@ export default function LoginUser({ onClose }) {
         loginUser(email, password)
             .then((response) => {
                 localStorage.setItem("token", response.token);
-                login();
+                // login();
+                onLogin();
                 onClose();
             })
             .catch((error) => {
