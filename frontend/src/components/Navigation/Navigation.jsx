@@ -15,6 +15,7 @@ import UserDetails from "../UserDetails/UserDetails";
 export default function Navigation() {
     const [showRegister, setShowRegister] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
+    const [showProfileDetails, setShowProfileDetails] = useState(false);
     const [showCreateShop, setShowCreateShop] = useState(false);
     const { isAuthenticated, logout, login } = useAuth();
 
