@@ -17,8 +17,11 @@ export default function LoginUser({ onClose, onLogin }) {
         e.preventDefault();
         loginUser(email, password)
             .then((response) => {
-                localStorage.setItem("token", response.token);
-                // login();
+                const { token, user_id } = response;
+
+                localStorage.setItem("token", token);
+                localStorage.setItem("userId", user_id);
+
                 onLogin();
                 onClose();
             })

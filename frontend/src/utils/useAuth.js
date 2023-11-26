@@ -20,6 +20,8 @@ const useAuth = () => {
 
     const logout = () => {
         setAuthentication(false);
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
     };
 
     return {

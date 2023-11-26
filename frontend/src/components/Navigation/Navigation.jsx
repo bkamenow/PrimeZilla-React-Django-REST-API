@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
 import { logoutUser } from "../../services/authService";
+
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
@@ -59,7 +61,6 @@ export default function Navigation() {
 
     const handleLogout = () => {
         logoutUser().then(() => {
-            localStorage.removeItem("token");
             logout();
         });
     };
@@ -72,7 +73,12 @@ export default function Navigation() {
                 <LoginUser onClose={hideUserLogin} onLogin={handleLogin} />
             )}
 
-            {showCreateShop && <CreateShop onClose={hideCreateShop} />}
+            {showCreateShop && (
+                <CreateShop
+                    onClose={hideCreateShop}
+                    onCreate={hideCreateShop}
+                />
+            )}
 
             {showProfileDetails && <UserDetails onClose={hideProfileDetails} />}
 

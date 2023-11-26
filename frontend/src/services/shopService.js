@@ -6,19 +6,16 @@ export const getAllShops = async () => {
 };
 
 export const createShop = async (formData) => {
+    const owner = localStorage.getItem("userId");
+    formData = { ...formData, owner };
+
     const response = await client.post("/shops/", formData);
-
-    if (response.status !== 201) {
-        const errorData = response.data;
-        throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
     const createdShop = response.data;
 
     return createdShop;
 };
 
 export const getShopItems = async (shopId) => {
-    const response = await client.get(`/shops/${shopId}/items/`);
+    const response = await client.get(`/shops/${shopId}/items`);
     return response.data;
 };

@@ -49,7 +49,7 @@ class UserLogin(APIView):
                 token_payload, 'django-insecure-9p3)vvpdl4%4hl56kz%7qq4ptn-rfe-!_6#qat6!v5zp7!^gud', algorithm='HS256')
 
             # Return the token in the response
-            return Response({'token': token}, status=status.HTTP_200_OK)
+            return Response({'token': token, 'user_id': user.user_id}, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

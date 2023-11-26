@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { createShop } from "../../services/shopService";
 
-export default function CreateShop({ onClose }) {
+export default function CreateShop({ onClose, onCreate }) {
     const [formData, setFormData] = useState({
         name: "",
         image_url: "",
@@ -15,16 +15,13 @@ export default function CreateShop({ onClose }) {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
+    const owner = localStorage.getItem("userId");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        try {
-            await createShop(formData);
-            onClose();
-        } catch (error) {
-            console.error(error);
-        }
+        console.log("Owner ID:", owner);
+        await createShop(formData);
+        onCreate();
     };
 
     return (
