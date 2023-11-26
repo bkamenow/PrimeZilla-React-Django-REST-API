@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 
 import { logoutUser } from "../../services/authService";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping, faHeart } from "@fortawesome/free-solid-svg-icons";
+
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
@@ -105,33 +108,41 @@ export default function Navigation() {
                     </Nav>
                     <Nav>
                         {isAuthenticated ? (
-                            <NavDropdown
-                                title='Profile'
-                                id='basic-nav-dropdown'
-                            >
-                                <NavDropdown.Item
-                                    href='#profile-details'
-                                    onClick={userDetailsClickHandler}
+                            <>
+                                <Nav.Link as={Link} to='#cart-list'>
+                                    <FontAwesomeIcon icon={faCartShopping} />
+                                </Nav.Link>
+                                <Nav.Link as={Link} to='#favorites'>
+                                    <FontAwesomeIcon icon={faHeart} />
+                                </Nav.Link>
+                                <NavDropdown
+                                    title='Profile'
+                                    id='basic-nav-dropdown'
                                 >
-                                    Profile Details
-                                </NavDropdown.Item>
-                                <NavDropdown.Item
-                                    onClick={createShopClickHandler}
-                                    href='#create-shop'
-                                >
-                                    Create Shop
-                                </NavDropdown.Item>
-                                <NavDropdown.Item href='#your-shops'>
-                                    Your Shops
-                                </NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item
-                                    href='#logout'
-                                    onClick={handleLogout}
-                                >
-                                    Logout
-                                </NavDropdown.Item>
-                            </NavDropdown>
+                                    <NavDropdown.Item
+                                        href='#profile-details'
+                                        onClick={userDetailsClickHandler}
+                                    >
+                                        Profile Details
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Item
+                                        onClick={createShopClickHandler}
+                                        href='#create-shop'
+                                    >
+                                        Create Shop
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Item href='#your-shops'>
+                                        Your Shops
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Divider />
+                                    <NavDropdown.Item
+                                        href='#logout'
+                                        onClick={handleLogout}
+                                    >
+                                        Logout
+                                    </NavDropdown.Item>
+                                </NavDropdown>
+                            </>
                         ) : (
                             <>
                                 <Nav.Link

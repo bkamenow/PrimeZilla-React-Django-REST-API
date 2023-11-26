@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { createShop } from "../../services/shopService";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateShop({ onClose, onCreate }) {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: "",
         image_url: "",
@@ -21,6 +23,7 @@ export default function CreateShop({ onClose, onCreate }) {
         e.preventDefault();
         console.log("Owner ID:", owner);
         await createShop(formData);
+        navigate("/shops-list");
         onCreate();
     };
 
