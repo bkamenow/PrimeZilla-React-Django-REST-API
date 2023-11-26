@@ -8,7 +8,7 @@ class Shop(models.Model):
     type = models.CharField(max_length=20)
     description = models.CharField(max_length=155)
     owner = models.ForeignKey(
-        AppUser, on_delete=models.CASCADE, related_name='name')
+        AppUser, on_delete=models.CASCADE, related_name='owner_shops')
 
     def __str__(self):
         return self.name

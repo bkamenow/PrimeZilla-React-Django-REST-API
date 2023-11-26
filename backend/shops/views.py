@@ -13,6 +13,14 @@ class ShopDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ShopSerializer
 
 
+class OwnerShopsList(generics.ListAPIView):
+    serializer_class = ShopSerializer
+
+    def get_queryset(self):
+        owner_id = self.kwargs['owner_id']
+        return Shop.objects.filter(owner_id=owner_id)
+
+
 class ItemList(generics.ListCreateAPIView):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer

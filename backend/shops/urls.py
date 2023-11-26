@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ShopList, ShopDetail, ItemList, ItemDetail, ItemListForShop
+from .views import ShopList, ShopDetail, ItemList, ItemDetail, ItemListForShop, OwnerShopsList
 
 
 urlpatterns = [
@@ -9,4 +9,6 @@ urlpatterns = [
     path('items/<int:pk>/', ItemDetail.as_view(), name='item-detail'),
     path('<int:pk>/items/', ItemListForShop.as_view(),
          name='item-list-for-shop'),
+    path('<int:owner_id>/shops/',
+         OwnerShopsList.as_view(), name='owner-shops-list'),
 ]
