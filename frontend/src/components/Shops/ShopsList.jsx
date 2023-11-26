@@ -1,8 +1,10 @@
+import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+
+import { getAllShops } from "../../services/shopService";
+
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import React, { useState, useEffect } from "react";
-import { getAllShops } from "../../services/shopService";
-import { Link } from "react-router-dom";
 
 export default function ShopsList() {
     const [shops, setShops] = useState([]);

@@ -1,7 +1,10 @@
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/esm/Button";
+import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+
 import { getOwnerShops } from "../../../services/shopService";
+
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
 
 export default function OwnerShopsList() {
     const userId = localStorage.getItem("userId");
@@ -38,7 +41,13 @@ export default function OwnerShopsList() {
                                 {shop.description}
                             </Card.Text>
                             <Button variant='dark'>Add Item</Button>
-                            <Button variant='dark'>View Items</Button>
+                            <Button
+                                variant='dark'
+                                as={Link}
+                                to={`/items/${shop.id}`}
+                            >
+                                View Items
+                            </Button>
                             <Button variant='dark'>Edit</Button>
                             <Button variant='danger'>Delete</Button>
                         </Card.Body>

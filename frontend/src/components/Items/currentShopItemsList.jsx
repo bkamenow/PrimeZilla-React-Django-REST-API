@@ -25,19 +25,26 @@ export default function CurrentShopItemsList() {
         <div className='background'>
             <div className='background-overlay'></div>
             <div className='shop-list-container'>
-                {shopItems.map((item) => (
-                    <Card style={{ width: "18rem" }} key={item.id}>
-                        <Card.Img variant='top' src={item.image_url} />
-                        <Card.Body>
-                            <Card.Title>{item.name}</Card.Title>
-                            <Card.Text>{item.description}</Card.Text>
-                            <Card.Text>Shop: {item.shop_name}</Card.Text>
-                            <Card.Text>{item.price}$</Card.Text>
-                            <Button variant='dark'>Add to Cart</Button>
-                            <Button variant='dark'>Add to favorite</Button>
-                        </Card.Body>
-                    </Card>
-                ))}
+                {shopItems.length === 0 ? (
+                    <div className='no-items-message'>
+                        <h1>There are no items yet!</h1>
+                        <Button variant='dark'>Add Items</Button>
+                    </div>
+                ) : (
+                    shopItems.map((item) => (
+                        <Card style={{ width: "18rem" }} key={item.id}>
+                            <Card.Img variant='top' src={item.image_url} />
+                            <Card.Body>
+                                <Card.Title>{item.name}</Card.Title>
+                                <Card.Text>{item.description}</Card.Text>
+                                <Card.Text>Shop: {item.shop_name}</Card.Text>
+                                <Card.Text>{item.price}$</Card.Text>
+                                <Button variant='dark'>Add to Cart</Button>
+                                <Button variant='dark'>Add to favorite</Button>
+                            </Card.Body>
+                        </Card>
+                    ))
+                )}
             </div>
         </div>
     );
