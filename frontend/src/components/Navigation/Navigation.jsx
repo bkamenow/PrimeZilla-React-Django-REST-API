@@ -129,10 +129,16 @@ export default function Navigation() {
                             </NavDropdown>
                         ) : (
                             <>
-                                <Nav.Link onClick={loginUserClickHandler}>
+                                <Nav.Link
+                                    onClick={loginUserClickHandler}
+                                    href='#login'
+                                >
                                     Login
                                 </Nav.Link>
-                                <Nav.Link onClick={registerUserClickHandler}>
+                                <Nav.Link
+                                    onClick={registerUserClickHandler}
+                                    href='#register'
+                                >
                                     Register
                                 </Nav.Link>
                             </>

@@ -2,15 +2,23 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 
 export default function UserDetailsCard({
-    imageSrc,
+    imageUrl,
     username,
     email,
     onEditClick,
     onDeleteClick,
 }) {
     return (
-        <Card style={{ width: "22rem" }}>
-            <Card.Img variant='top' src={imageSrc} alt='User Avatar' />
+        <Card style={{ width: "22rem" }} className='details-card'>
+            <Card.Img
+                variant='top'
+                className='details-img'
+                src={
+                    imageUrl ||
+                    "https://cdn-icons-png.flaticon.com/512/6596/6596121.png"
+                }
+                alt='User Avatar'
+            />
             <Card.Body>
                 <Card.Subtitle className='mb-2 text-muted'>
                     @{username}

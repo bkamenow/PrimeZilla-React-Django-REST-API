@@ -295,3 +295,20 @@ span.input-group-addon {
     background: url('/public/images/background.jpg') center/cover;
 
 }
+
+/* #profile-details */
+.details-img {
+    width: 10rem;
+}
+
+.details-card {
+    display: flex;
+    align-items: center;
+    padding-top: 15px;
+    width: 22rem;
+    height: 20rem;
+}
+
+.card-body {
+    text-align: center;
+}

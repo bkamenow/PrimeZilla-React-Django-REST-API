@@ -1,15 +1,25 @@
+import { useState, useEffect } from "react";
+
+import * as userService from "../../services/userService";
+
 import UserDetailsCard from "./UserDetailsCard";
 
 export default function UserDetails({ onClose }) {
-    // Mock data, replace with actual user data
-    const user = {
-        imageSrc: "path/to/user-avatar.jpg",
-        fullName: "John Doe",
-        username: "john_doe",
-        email: "john.doe@example.com",
-        bio: "Web Developer",
-        shops: 3,
-    };
+    const [user, setUser] = useState({});
+    const userId = localStorage.getItem("userId");
+
+    useEffect(() => {
+        userService
+            .getOne(userId)
+            .then((response) => {
+                const userData = response.data[userId];
+                setUser(userData);
+                console.log(userData);
+            })
+            .catch((error) => {
+                console.error("Error fetching user details:", error.message);
+            });
+    }, [userId]);
 
     const handleEditClick = () => {
         // Add your logic for handling edit click
@@ -24,16 +34,15 @@ export default function UserDetails({ onClose }) {
     return (
         <div className='overlay' onClick={onClose}>
             <div onClick={(e) => e.stopPropagation()}>
-                <UserDetailsCard
-                    imageSrc={user.imageSrc}
-                    fullName={user.fullName}
-                    username={user.username}
-                    email={user.email}
-                    bio={user.bio}
-                    shops={user.shops}
-                    onEditClick={handleEditClick}
-                    onDeleteClick={handleDeleteClick}
-                />
+                {user && (
+                    <UserDetailsCard
+                        imageUrl={user.image_url}
+                        username={user.username}
+                        email={user.email}
+                        onEditClick={handleEditClick}
+                        onDeleteClick={handleDeleteClick}
+                    />
+                )}
             </div>
         </div>
     );

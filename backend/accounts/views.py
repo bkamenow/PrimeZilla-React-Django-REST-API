@@ -76,4 +76,4 @@ class UserDetailsView(APIView):
     def get(self, request, pk):
         user = AppUser.objects.get(pk=pk)
         serializer = UserSerializer(user)
-        return Response({'user': serializer.data}, status=status.HTTP_200_OK)
+        return Response({pk: serializer.data}, status=status.HTTP_200_OK)
