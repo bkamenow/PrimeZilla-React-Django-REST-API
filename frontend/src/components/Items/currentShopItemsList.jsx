@@ -28,7 +28,6 @@ export default function CurrentShopItemsList() {
                 {shopItems.length === 0 ? (
                     <div className='no-items-message'>
                         <h1>There are no items yet!</h1>
-                        <Button variant='dark'>Add Items</Button>
                     </div>
                 ) : (
                     shopItems.map((item) => (

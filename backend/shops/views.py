@@ -37,3 +37,12 @@ class ItemListForShop(generics.ListAPIView):
     def get_queryset(self):
         shop_id = self.kwargs['pk']
         return Item.objects.filter(shop_id=shop_id)
+
+
+class CreateItemView(generics.CreateAPIView):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
+
+    def perform_create(self, serializer):
+        shop_id = self.kwargs['shop_id']
+        serializer.save(shop_id=shop_id)
