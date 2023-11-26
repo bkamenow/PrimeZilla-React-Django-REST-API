@@ -323,3 +323,9 @@ span.input-group-addon {
     margin-top: 10px;
     text-align: center;
 }
+
+/* #owner-shops */
+.owner-shops button {
+    margin-left: 8px;
+
+}

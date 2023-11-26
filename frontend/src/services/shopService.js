@@ -19,3 +19,8 @@ export const getShopItems = async (shopId) => {
     const response = await client.get(`/shops/${shopId}/items`);
     return response.data;
 };
+
+export const getOwnerShops = async (userId) => {
+    const response = await client.get(`/shops/${userId}/shops`);
+    return response.data;
+};

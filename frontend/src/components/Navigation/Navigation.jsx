@@ -131,7 +131,7 @@ export default function Navigation() {
                                     >
                                         Create Shop
                                     </NavDropdown.Item>
-                                    <NavDropdown.Item href='#your-shops'>
+                                    <NavDropdown.Item href='/your-shops'>
                                         Your Shops
                                     </NavDropdown.Item>
                                     <NavDropdown.Divider />

@@ -6,6 +6,7 @@ import ShopsList from "./components/Shops/ShopsList";
 import Home from "./components/Home/Home";
 import ItemsList from "./components/Items/ItemsList";
 import CurrentShopItemsList from "./components/Items/currentShopItemsList";
+import OwnerShopsList from "./components/Shops/OwnerShopsList/OwnerShopsList";
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/shops-list' element={<ShopsList />} />
+                <Route path='/your-shops' element={<OwnerShopsList />} />
                 <Route
                     path='/items/:shopId'
                     element={<CurrentShopItemsList />}
