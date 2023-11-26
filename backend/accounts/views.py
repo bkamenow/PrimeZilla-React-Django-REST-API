@@ -77,3 +77,15 @@ class UserDetailsView(APIView):
         user = AppUser.objects.get(pk=pk)
         serializer = UserSerializer(user)
         return Response({pk: serializer.data}, status=status.HTTP_200_OK)
+
+
+class EditUser(APIView):
+    def put(self, request, pk):
+        user = AppUser.objects.get(pk=pk)
+        serializer = UserSerializer(user, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

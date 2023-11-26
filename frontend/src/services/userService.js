@@ -5,3 +5,9 @@ export const getOne = async (userId) => {
 
     return result;
 };
+
+export const edit = async (userId, userData) => {
+    const result = await client.put(`/accounts/edit/${userId}/`, userData);
+
+    return result;
+};
