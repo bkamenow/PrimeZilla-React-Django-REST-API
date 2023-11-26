@@ -6,6 +6,7 @@ import { getOwnerShops } from "../../../services/shopService";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import CreateItem from "../../Items/CreateItem";
+import EditShop from "../EditShop";
 
 export default function OwnerShopsList() {
     const userId = localStorage.getItem("userId");
@@ -13,6 +14,7 @@ export default function OwnerShopsList() {
     const [shopId, setShopId] = useState(null);
     const [shopName, setShopName] = useState(null);
     const [showAddItem, setShowAddItem] = useState(false);
+    const [showEditShop, setShowEditShop] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -37,6 +39,21 @@ export default function OwnerShopsList() {
         setShowAddItem(false);
     };
 
+    const editShopClickHandler = (shopId) => {
+        setShowEditShop(true);
+        setShopId(shopId);
+    };
+
+    const hideEditShop = async () => {
+        setShowEditShop(false);
+        try {
+            const updatedData = await getOwnerShops(userId);
+            setShops(updatedData);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <>
             {showAddItem && (
@@ -45,6 +62,14 @@ export default function OwnerShopsList() {
                     onCreate={hideAddItem}
                     shopId={shopId}
                     shopName={shopName}
+                />
+            )}
+
+            {showEditShop && (
+                <EditShop
+                    onClose={hideEditShop}
+                    onCreate={hideEditShop}
+                    shopId={shopId}
                 />
             )}
             <div className='background'>
@@ -79,7 +104,14 @@ export default function OwnerShopsList() {
                                 >
                                     View Items
                                 </Button>
-                                <Button variant='dark'>Edit</Button>
+                                <Button
+                                    variant='dark'
+                                    onClick={() =>
+                                        editShopClickHandler(shop.id)
+                                    }
+                                >
+                                    Edit
+                                </Button>
                                 <Button variant='danger'>Delete</Button>
                             </Card.Body>
                         </Card>

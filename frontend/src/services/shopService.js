@@ -5,6 +5,12 @@ export const getAllShops = async () => {
     return response.data;
 };
 
+export const getOneShop = async (shopId) => {
+    const result = await client.get(`/shops/${shopId}/`);
+
+    return result;
+};
+
 export const createShop = async (formData) => {
     const owner = localStorage.getItem("userId");
     formData = { ...formData, owner };
@@ -13,6 +19,12 @@ export const createShop = async (formData) => {
     const createdShop = response.data;
 
     return createdShop;
+};
+
+export const editShop = async (shopId, shopData) => {
+    const result = await client.put(`/shops/${shopId}/edit/`, shopData);
+
+    return result;
 };
 
 export const getShopItems = async (shopId) => {
