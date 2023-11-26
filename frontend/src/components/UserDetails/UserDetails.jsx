@@ -4,9 +4,11 @@ import * as userService from "../../services/userService";
 
 import UserDetailsCard from "./UserDetailsCard";
 import EditUser from "../EditUser/EditUser";
+import DeleteUser from "../DeleteUser/DeleteUser";
 
-export default function UserDetails({ onClose }) {
+export default function UserDetails({ onClose, onDelete }) {
     const [isEditing, setIsEditing] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
     const [user, setUser] = useState({});
     const userId = localStorage.getItem("userId");
 
@@ -41,8 +43,12 @@ export default function UserDetails({ onClose }) {
     };
 
     const handleDeleteClick = () => {
-        // Add your logic for handling delete click
-        console.log("Delete button clicked");
+        setIsDeleting(true);
+    };
+
+    const handleDeleteUserClose = () => {
+        onClose();
+        setIsDeleting(false);
     };
 
     return (
@@ -50,6 +56,13 @@ export default function UserDetails({ onClose }) {
             <div onClick={(e) => e.stopPropagation()}>
                 {isEditing && (
                     <EditUser userId={userId} onClose={handleEditUserClose} />
+                )}
+                {isDeleting && (
+                    <DeleteUser
+                        userId={userId}
+                        onClose={handleDeleteUserClose}
+                        onDelete={onDelete}
+                    />
                 )}
                 {user && (
                     <UserDetailsCard

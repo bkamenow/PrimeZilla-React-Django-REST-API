@@ -80,7 +80,12 @@ export default function Navigation() {
                 />
             )}
 
-            {showProfileDetails && <UserDetails onClose={hideProfileDetails} />}
+            {showProfileDetails && (
+                <UserDetails
+                    onClose={hideProfileDetails}
+                    onDelete={handleLogout}
+                />
+            )}
 
             <Navbar bg='dark' variant='dark'>
                 <Container>

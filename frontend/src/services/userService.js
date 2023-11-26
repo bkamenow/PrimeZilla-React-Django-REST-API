@@ -11,3 +11,8 @@ export const edit = async (userId, userData) => {
 
     return result;
 };
+
+export const remove = async (userId) => {
+    const result = await client.delete(`/accounts/delete/${userId}`);
+    return result;
+};
