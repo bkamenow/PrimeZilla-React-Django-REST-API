@@ -1,0 +1,24 @@
+.owner-shops button {
+    margin-left: 4px;
+    margin-right: 4px;
+
+}
+
+/* no-items-message */
+.no-items-message {
+    text-align: center;
+    position: relative;
+    border-radius: 8px;
+
+}
+
+.no-items-message h1 {
+    font-size: 6rem;
+    color: #f4f4f4;
+    margin-bottom: 20px;
+}
+
+.no-items-message button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+}

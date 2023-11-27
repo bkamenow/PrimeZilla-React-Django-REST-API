@@ -1,0 +1,9 @@
+.edit-from-box {
+    width: 22rem;
+    height: 20rem;
+}
+
+.edit-from-box button {
+    margin-top: 10px;
+    text-align: center;
+}

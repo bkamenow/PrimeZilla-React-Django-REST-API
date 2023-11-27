@@ -3,6 +3,8 @@ import Carousel from "react-bootstrap/Carousel";
 import { getAllShops } from "../../services/shopService";
 import { Link } from "react-router-dom";
 
+import "./Carousel.css";
+
 export default function CarouselCards() {
     const [shops, setShops] = useState([]);
 

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 
 import { getAllShops } from "../../services/shopService";
 
+import "./ShopsList.css";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 

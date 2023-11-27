@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 
 import { getOwnerShops } from "../../../services/shopService";
+import "./OwnerShopList.css";
 
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+
 import CreateItem from "../../Items/CreateItem";
 import EditShop from "../EditShop";
 

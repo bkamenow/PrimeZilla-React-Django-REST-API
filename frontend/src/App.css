@@ -27,7 +27,7 @@ span.input-group-addon {
     margin-top: 5%;
 }
 
-/* my css */
+/* my css main*/
 .main {
     display: flex;
     flex-direction: column;
@@ -36,10 +36,13 @@ span.input-group-addon {
     height: 100vh;
 }
 
-.user-buttons {
-    margin-top: 20px;
-
+.back {
+    position: relative;
+    height: 100%;
+    background: url('/public/images/background.jpg') center/cover;
 }
+
+
 
 .overlay {
     position: fixed;
@@ -56,6 +59,13 @@ span.input-group-addon {
 
 }
 
+.user-buttons {
+    margin-top: 20px;
+
+}
+
+/* FORMS */
+
 .form-box {
     background-color: white;
     padding: 20px;
@@ -68,190 +78,6 @@ span.input-group-addon {
 
 .form-header {
     margin-bottom: 20px;
-}
-
-/* Footer */
-.dark-footer {
-    background-color: #212529;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-}
-
-/* Contacts */
-.container-contacts {
-    margin: 0 auto;
-    max-height: 800px;
-
-}
-
-.content-container {
-    display: flex;
-    align-items: center;
-    background-color: #f4f4f4;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 0 50px 0 50px;
-
-}
-
-
-.container-contacts h1 {
-    background-color: #212529;
-    color: #fff;
-    padding: 5px;
-    text-align: center;
-}
-
-.contact-info {
-    flex: 0 0 calc(50% - 10px);
-    margin-right: 20px;
-    padding: 20px;
-
-}
-
-.contact-form {
-    flex: 0 0 calc(50% - 10px);
-    margin-top: 20px;
-    padding: 20px;
-
-}
-
-.form-group {
-    margin-bottom: 16px;
-}
-
-.form-group label {
-    font-weight: bold;
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.form-group button {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.form-group button:hover {
-    background-color: #555;
-}
-
-/* Carousel */
-
-.w-100 {
-    max-width: 200px;
-    height: 300px;
-    margin-left: 44%;
-    margin-bottom: 150px;
-    margin-top: 100px;
-}
-
-.carousel-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-
-/* Header */
-
-.header-container {
-    position: relative;
-    height: 600px;
-    /* background: url('/public/images/background.jpg') center/cover; */
-    color: #fff;
-}
-
-.header-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-.header-text-container {
-    display: flex;
-    align-items: center;
-    max-width: 800px;
-}
-
-.welcome-message {
-    display: inline-block;
-    z-index: 999;
-    margin: 0 auto;
-    left: 0;
-    top: 40%;
-    text-align: center;
-    width: 30%
-}
-
-.welcome-message h2,
-.welcome-message h3 {
-    color: #ffffff;
-    font-size: 250%;
-    font-size: 55px;
-    line-height: 1;
-    font-weight: 700;
-    letter-spacing: normal;
-    word-spacing: normal;
-    text-transform: uppercase;
-    text-shadow: 0 2px 4.8px rgba(0, 0, 0, 0.3);
-    font-family: "Agency FB";
-}
-
-.welcome-message h3 {
-
-    font-size: 400%;
-
-}
-
-.header-image {
-    margin-bottom: 6rem;
-    margin-left: 12rem;
-}
-
-
-/* ShopList */
-.shop-list-container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    padding: 30px 200px 30px 370px;
-}
-
-.shop-list-container .card {
-
-    margin: 20px;
-}
-
-.shop-list-container .card img {
-    width: 100%;
-    height: 250px;
 }
 
 .background {
@@ -285,67 +111,4 @@ span.input-group-addon {
     display: flex;
     gap: 10px;
     margin-top: 10px;
-}
-
-
-.back {
-
-    position: relative;
-    height: 100%;
-    background: url('/public/images/background.jpg') center/cover;
-
-}
-
-/* #profile-details */
-.details-img {
-    width: 10rem;
-}
-
-.details-card {
-    display: flex;
-    align-items: center;
-    padding-top: 15px;
-    width: 22rem;
-    height: 20rem;
-}
-
-.card-body {
-    text-align: center;
-}
-
-/* #edit-profile */
-.edit-from-box {
-    width: 22rem;
-    height: 20rem;
-}
-
-.edit-from-box button {
-    margin-top: 10px;
-    text-align: center;
-}
-
-/* #owner-shops */
-.owner-shops button {
-    margin-left: 4px;
-    margin-right: 4px;
-
-}
-
-/* no-items-message */
-.no-items-message {
-    text-align: center;
-    position: relative;
-    border-radius: 8px;
-
-}
-
-.no-items-message h1 {
-    font-size: 6rem;
-    color: #f4f4f4;
-    margin-bottom: 20px;
-}
-
-.no-items-message button {
-    padding: 10px 20px;
-    font-size: 1.2rem;
 }

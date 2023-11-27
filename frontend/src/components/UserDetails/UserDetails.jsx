@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import * as userService from "../../services/userService";
+import "./UserDetails.css";
 
 import UserDetailsCard from "./UserDetailsCard";
 import EditUser from "../EditUser/EditUser";
