@@ -20,18 +20,29 @@ export default function ShopCard({
                     {shop.description}
                 </Card.Text>
                 <Button
+                    style={{ margin: 3 }}
                     variant='dark'
                     onClick={() => onAddItemClick(shop.id, shop.name)}
                 >
                     Add Item
                 </Button>
-                <Button variant='dark' as={Link} to={`/items/${shop.id}`}>
+                <Button
+                    style={{ margin: 3 }}
+                    variant='dark'
+                    as={Link}
+                    to={`/items/${shop.id}`}
+                >
                     View Items
                 </Button>
-                <Button variant='dark' onClick={() => onEditShopClick(shop.id)}>
+                <Button
+                    style={{ margin: 3 }}
+                    variant='dark'
+                    onClick={() => onEditShopClick(shop.id)}
+                >
                     Edit
                 </Button>
                 <Button
+                    style={{ margin: 3 }}
                     variant='danger'
                     type='button'
                     onClick={() => onDeleteShopClick(shop.id, shop.name)}

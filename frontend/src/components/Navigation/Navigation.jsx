@@ -13,7 +13,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 
 import RegisterUser from "../UserAuthentication/RegisterUser";
 import LoginUser from "../UserAuthentication/LoginUser";
-import CreateShop from "../Shops/CreateShop";
+import CreateShop from "../Shops/CreateShop/CreateShop";
 import useAuth from "../../utils/useAuth";
 import UserDetails from "../UserDetails/UserDetails";
 

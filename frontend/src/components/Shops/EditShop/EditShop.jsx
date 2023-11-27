@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-import useForm from "../../hooks/useForm";
-import * as shopService from "../../services/shopService";
+import useForm from "../../../hooks/useForm";
+import * as shopService from "../../../services/shopService";
 
 export default function EditShop({ onClose, shopId }) {
     const [shop, setShop] = useState({

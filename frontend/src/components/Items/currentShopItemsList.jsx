@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { useParams } from "react-router-dom";
 import { getShopItems } from "../../services/shopService";
-
+import "./Items.css";
 export default function CurrentShopItemsList() {
     const [shopItems, setShopItems] = useState([]);
     const { shopId } = useParams();

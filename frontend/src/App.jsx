@@ -2,10 +2,10 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/Footer/Footer";
 import Navigation from "./components/Navigation/Navigation";
-import ShopsList from "./components/Shops/ShopsList";
+import ShopsList from "./components/Shops/ShopsList/ShopsList";
 import Home from "./components/Home/Home";
 import ItemsList from "./components/Items/ItemsList";
-import CurrentShopItemsList from "./components/Items/currentShopItemsList";
+import CurrentShopItemsList from "./components/Items/CurrentShopItemsList";
 import OwnerShopsList from "./components/Shops/OwnerShopsList/OwnerShopsList";
 
 function App() {

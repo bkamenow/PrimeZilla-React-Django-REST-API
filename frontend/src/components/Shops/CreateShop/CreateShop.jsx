@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-import { createShop } from "../../services/shopService";
+import { createShop } from "../../../services/shopService";
 
 export default function CreateShop({ onClose, onCreate }) {
     const navigate = useNavigate();

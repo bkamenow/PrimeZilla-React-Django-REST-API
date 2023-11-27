@@ -2,9 +2,9 @@ import { useState, useEffect, useCallback } from "react";
 
 import { getOwnerShops } from "../../../services/shopService";
 
-import EditShop from "../EditShop";
-import DeleteShop from "../DeleteShop";
-import ShopCard from "../ShopCard";
+import EditShop from "../EditShop/EditShop";
+import DeleteShop from "../DeleteShop/DeleteShop";
+import ShopCard from "./ShopCard";
 
 export default function OwnerShopsList() {
     const userId = localStorage.getItem("userId");

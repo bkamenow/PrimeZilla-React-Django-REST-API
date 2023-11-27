@@ -19,6 +19,5 @@
 .background {
     position: relative;
     min-height: 733px;
-    /* background: url('/public/images/background.jpg') center/cover; */
     color: #fff;
 }

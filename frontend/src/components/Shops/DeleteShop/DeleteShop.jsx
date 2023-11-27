@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { deleteShop } from "../../services/shopService";
+import { deleteShop } from "../../../services/shopService";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
