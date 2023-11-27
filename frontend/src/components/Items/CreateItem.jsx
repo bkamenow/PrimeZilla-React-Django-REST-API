@@ -22,7 +22,6 @@ export default function CreateItem({ shopId, shopName, onCreate, onClose }) {
         e.preventDefault();
 
         try {
-            console.log(formData);
             await createItem(shopId, formData);
             onCreate();
         } catch (error) {

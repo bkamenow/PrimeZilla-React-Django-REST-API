@@ -51,10 +51,15 @@
 .welcome-message h3 {
 
     font-size: 400%;
+    margin: 0;
 
 }
 
 .header-image {
     margin-bottom: 6rem;
     margin-left: 12rem;
+}
+
+.prmzila-text {
+    margin-top: 0;
 }

@@ -22,8 +22,13 @@ export const createShop = async (formData) => {
 };
 
 export const editShop = async (shopId, shopData) => {
-    const result = await client.put(`/shops/${shopId}/edit/`, shopData);
+    const result = await client.put(`/shops/${shopId}/`, shopData);
 
+    return result;
+};
+
+export const deleteShop = async (shopId) => {
+    const result = await client.delete(`shops/${shopId}/`);
     return result;
 };
 

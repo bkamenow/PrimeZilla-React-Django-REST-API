@@ -10,3 +10,8 @@ export const createItem = async (shopId, itemData) => {
     console.log(itemData);
     return result.data;
 };
+
+// export const deleteItem = async (itemId) => {
+//     const result = await client.delete(`shops/items/${itemId}`);
+//     return result;
+// };

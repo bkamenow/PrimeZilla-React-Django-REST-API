@@ -1,6 +1,6 @@
 from rest_framework import generics
 from .models import Shop, Item
-from .serializers import ShopSerializer, ItemSerializer, ShopEditSerializer
+from .serializers import ShopSerializer, ItemSerializer
 
 
 class ShopList(generics.ListCreateAPIView):
@@ -19,11 +19,6 @@ class OwnerShopsList(generics.ListAPIView):
     def get_queryset(self):
         owner_id = self.kwargs['owner_id']
         return Shop.objects.filter(owner_id=owner_id)
-
-
-class ShopEditView(generics.RetrieveUpdateAPIView):
-    queryset = Shop.objects.all()
-    serializer_class = ShopEditSerializer
 
 
 ###### ITEMS #####

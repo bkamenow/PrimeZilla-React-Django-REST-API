@@ -1,14 +1,10 @@
-import { Link } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import { getOwnerShops } from "../../../services/shopService";
-import "./OwnerShopList.css";
 
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-
-import CreateItem from "../../Items/CreateItem";
 import EditShop from "../EditShop";
+import DeleteShop from "../DeleteShop";
+import ShopCard from "../ShopCard";
 
 export default function OwnerShopsList() {
     const userId = localStorage.getItem("userId");
@@ -17,6 +13,7 @@ export default function OwnerShopsList() {
     const [shopName, setShopName] = useState(null);
     const [showAddItem, setShowAddItem] = useState(false);
     const [showEditShop, setShowEditShop] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -29,25 +26,9 @@ export default function OwnerShopsList() {
         };
 
         fetchData();
-    }, []);
+    }, [userId]);
 
-    const addItemClickHandler = (shopId, shopName) => {
-        setShowAddItem(true);
-        setShopId(shopId);
-        setShopName(shopName);
-    };
-
-    const hideAddItem = () => {
-        setShowAddItem(false);
-    };
-
-    const editShopClickHandler = (shopId) => {
-        setShowEditShop(true);
-        setShopId(shopId);
-    };
-
-    const hideEditShop = async () => {
-        setShowEditShop(false);
+    const fetchUpdatedData = async () => {
         try {
             const updatedData = await getOwnerShops(userId);
             setShops(updatedData);
@@ -55,6 +36,42 @@ export default function OwnerShopsList() {
             console.log(error);
         }
     };
+
+    const addItemClickHandler = useCallback((shopId, shopName) => {
+        setShowAddItem(true);
+        setShopId(shopId);
+        setShopName(shopName);
+    }, []);
+
+    const hideAddItem = useCallback(() => {
+        setShowAddItem(false);
+    }, []);
+
+    const editShopClickHandler = useCallback((shopId) => {
+        setShowEditShop(true);
+        setShopId(shopId);
+    }, []);
+
+    const hideEditShop = useCallback(async () => {
+        setShowEditShop(false);
+        try {
+            const updatedData = await getOwnerShops(userId);
+            setShops(updatedData);
+        } catch (error) {
+            console.log(error);
+        }
+    }, [userId]);
+
+    const handleDeleteShopClick = useCallback((shopId, shopName) => {
+        setIsDeleting(true);
+        setShopId(shopId);
+        setShopName(shopName);
+    }, []);
+
+    const handleDeleteShopClose = useCallback(() => {
+        setIsDeleting(false);
+        fetchUpdatedData();
+    }, []);
 
     return (
         <>
@@ -74,49 +91,26 @@ export default function OwnerShopsList() {
                     shopId={shopId}
                 />
             )}
+
+            {isDeleting && (
+                <DeleteShop
+                    onClose={handleDeleteShopClose}
+                    shopId={shopId}
+                    shopName={shopName}
+                />
+            )}
+
             <div className='background'>
                 <div className='background-overlay'></div>
                 <div className='shop-list-container items owner-shops'>
                     {shops.map((shop) => (
-                        <Card style={{ width: "25rem" }} key={shop.id}>
-                            <Card.Img
-                                variant='top'
-                                src={shop.image_url}
-                                alt={shop.name}
-                            />
-                            <Card.Body>
-                                <Card.Title>{shop.name}</Card.Title>
-                                <Card.Text>
-                                    <b>{shop.type}</b>
-                                    <br />
-                                    {shop.description}
-                                </Card.Text>
-                                <Button
-                                    variant='dark'
-                                    onClick={() =>
-                                        addItemClickHandler(shop.id, shop.name)
-                                    }
-                                >
-                                    Add Item
-                                </Button>
-                                <Button
-                                    variant='dark'
-                                    as={Link}
-                                    to={`/items/${shop.id}`}
-                                >
-                                    View Items
-                                </Button>
-                                <Button
-                                    variant='dark'
-                                    onClick={() =>
-                                        editShopClickHandler(shop.id)
-                                    }
-                                >
-                                    Edit
-                                </Button>
-                                <Button variant='danger'>Delete</Button>
-                            </Card.Body>
-                        </Card>
+                        <ShopCard
+                            key={shop.id}
+                            shop={shop}
+                            onAddItemClick={addItemClickHandler}
+                            onEditShopClick={editShopClickHandler}
+                            onDeleteShopClick={handleDeleteShopClick}
+                        />
                     ))}
                 </div>
             </div>

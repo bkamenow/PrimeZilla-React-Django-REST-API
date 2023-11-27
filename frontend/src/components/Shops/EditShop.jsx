@@ -37,63 +37,70 @@ export default function EditShop({ onClose, shopId }) {
     };
 
     const { values, onChange, onSubmit } = useForm(editShopSubmitHandler, shop);
+
     return (
-        <div className='overlay' onClick={onClose}>
-            <div className='form-box' onClick={(e) => e.stopPropagation()}>
-                <div className='form-header'>
-                    <h3>Create Shop</h3>
-                </div>
-                <Form onSubmit={onSubmit}>
-                    <Form.Group className='mb-3'>
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control
-                            type='text'
-                            placeholder='Name'
-                            name='name'
-                            value={values.name}
-                            onChange={onChange}
-                        />
-                    </Form.Group>
-                    <Form.Group className='mb-3'>
-                        <Form.Label>Image URL</Form.Label>
-                        <Form.Control
-                            type='text'
-                            placeholder='Image URL'
-                            name='image_url'
-                            value={values.image_url}
-                            onChange={onChange}
-                        />
-                    </Form.Group>
-                    <Form.Group className='mb-3'>
-                        <Form.Label>Type</Form.Label>
-                        <Form.Control
-                            type='text'
-                            placeholder='Type'
-                            name='type'
-                            value={values.type}
-                            onChange={onChange}
-                        />
-                    </Form.Group>
-                    <Form.Group className='mb-3'>
-                        <Form.Label>Description</Form.Label>
-                        <Form.Control
-                            type='text'
-                            placeholder='Description'
-                            name='description'
-                            value={values.description}
-                            onChange={onChange}
-                        />
-                    </Form.Group>
-                    <div className='form-btns'>
-                        <Button variant='dark' type='submit'>
-                            Submit
-                        </Button>
-                        <Button variant='dark' type='button' onClick={onClose}>
-                            Close
-                        </Button>
+        <>
+            <div className='overlay' onClick={onClose}>
+                <div className='form-box' onClick={(e) => e.stopPropagation()}>
+                    <div className='form-header'>
+                        <h3>Create Shop</h3>
                     </div>
-                </Form>
+                    <Form onSubmit={onSubmit}>
+                        <Form.Group className='mb-3'>
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control
+                                type='text'
+                                placeholder='Name'
+                                name='name'
+                                value={values.name}
+                                onChange={onChange}
+                            />
+                        </Form.Group>
+                        <Form.Group className='mb-3'>
+                            <Form.Label>Image URL</Form.Label>
+                            <Form.Control
+                                type='text'
+                                placeholder='Image URL'
+                                name='image_url'
+                                value={values.image_url}
+                                onChange={onChange}
+                            />
+                        </Form.Group>
+                        <Form.Group className='mb-3'>
+                            <Form.Label>Type</Form.Label>
+                            <Form.Control
+                                type='text'
+                                placeholder='Type'
+                                name='type'
+                                value={values.type}
+                                onChange={onChange}
+                            />
+                        </Form.Group>
+                        <Form.Group className='mb-3'>
+                            <Form.Label>Description</Form.Label>
+                            <Form.Control
+                                type='text'
+                                placeholder='Description'
+                                name='description'
+                                value={values.description}
+                                onChange={onChange}
+                            />
+                        </Form.Group>
+                        <div className='form-btns'>
+                            <Button variant='dark' type='submit'>
+                                Submit
+                            </Button>
+                            <Button
+                                variant='dark'
+                                type='button'
+                                onClick={onClose}
+                            >
+                                Close
+                            </Button>
+                        </div>
+                    </Form>
+                </div>
             </div>
-        </div>
+        </>
     );
 }

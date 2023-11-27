@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-// import { Button, Form } from "../../../utils/importBootstrap";
-
 import { createShop } from "../../services/shopService";
 
 export default function CreateShop({ onClose, onCreate }) {
@@ -25,7 +23,7 @@ export default function CreateShop({ onClose, onCreate }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await createShop(formData);
-        navigate("/shops-list");
+        navigate("/your-shops");
         onCreate();
     };
 

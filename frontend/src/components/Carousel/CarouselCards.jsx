@@ -30,7 +30,7 @@ export default function CarouselCards() {
             <div className='carousel-overlay'></div>
             <Carousel>
                 {shops.map((shop) => (
-                    <Carousel.Item key={shop.id}>
+                    <Carousel.Item key={shop.id} interval={3000}>
                         <Link to={`/items/${shop.id}`}>
                             <img
                                 className='d-block w-100'

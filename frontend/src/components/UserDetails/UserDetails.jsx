@@ -48,7 +48,6 @@ export default function UserDetails({ onClose, onDelete }) {
     };
 
     const handleDeleteUserClose = () => {
-        onClose();
         setIsDeleting(false);
     };
 
