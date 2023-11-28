@@ -4,6 +4,7 @@ import Card from "react-bootstrap/Card";
 import { useParams } from "react-router-dom";
 import { getShopItems } from "../../services/shopService";
 import "./Items.css";
+import ItemModal from "./ItemModal";
 export default function CurrentShopItemsList() {
     const [shopItems, setShopItems] = useState([]);
     const { shopId } = useParams();
@@ -31,21 +32,7 @@ export default function CurrentShopItemsList() {
                     </div>
                 ) : (
                     shopItems.map((item) => (
-                        <Card style={{ width: "18rem" }} key={item.id}>
-                            <Card.Img variant='top' src={item.image_url} />
-                            <Card.Body>
-                                <Card.Title>{item.name}</Card.Title>
-                                <Card.Text>{item.description}</Card.Text>
-                                <Card.Text>Shop: {item.shop_name}</Card.Text>
-                                <Card.Text>{item.price}$</Card.Text>
-                                <div className='form-btns'>
-                                    <Button variant='dark'>Add to Cart</Button>
-                                    <Button variant='dark'>
-                                        Add to favorite
-                                    </Button>
-                                </div>
-                            </Card.Body>
-                        </Card>
+                        <ItemModal key={item.id} {...item} />
                     ))
                 )}
             </div>

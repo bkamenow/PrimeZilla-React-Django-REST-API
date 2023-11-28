@@ -1,7 +1,6 @@
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { getAllItems } from "../../services/itemService";
+import ItemModal from "./ItemModal";
 
 export default function ItemsList() {
     const [items, setItems] = useState([]);
@@ -23,23 +22,7 @@ export default function ItemsList() {
             <div className='background-overlay'></div>
             <div className='shop-list-container items'>
                 {items.map((item) => (
-                    <Card style={{ width: "18rem" }} key={item.id}>
-                        <Card.Img
-                            variant='top'
-                            src={item.image_url}
-                            alt={item.name}
-                        />
-                        <Card.Body>
-                            <Card.Title>{item.name}</Card.Title>
-                            <Card.Text>{item.description}</Card.Text>
-                            <Card.Text>Shop: {item.shop_name}</Card.Text>
-                            <Card.Text>{item.price}$</Card.Text>
-                            <div className='form-btns'>
-                                <Button variant='dark'>Add to Cart</Button>
-                                <Button variant='dark'>Add to favorite</Button>
-                            </div>
-                        </Card.Body>
-                    </Card>
+                    <ItemModal key={item.id} {...item} />
                 ))}
             </div>
         </div>
