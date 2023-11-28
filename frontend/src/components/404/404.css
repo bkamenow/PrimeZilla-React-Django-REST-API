@@ -1,0 +1,10 @@
+.error404-container {
+    background: white;
+    display: flex;
+    align-items: center;
+}
+
+img {
+    max-width: 700px;
+    margin: 8.3px auto;
+}

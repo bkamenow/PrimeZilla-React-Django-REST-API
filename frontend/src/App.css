@@ -100,6 +100,10 @@ span.input-group-addon {
     text-align: center;
 }
 
+.card-img-top {
+    margin-top: 0;
+}
+
 /* Forms */
 
 .form-box {
