@@ -1,19 +1,18 @@
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import AllowAny
+
 from .models import Shop, Item, CartItem
 from .serializers import ShopSerializer, ItemSerializer, CartItemSerializer
 
 
 class ShopList(generics.ListCreateAPIView):
-    permission_classes = [AllowAny]
+
     queryset = Shop.objects.all()
     serializer_class = ShopSerializer
 
 
 class ShopDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [AllowAny]
     queryset = Shop.objects.all()
     serializer_class = ShopSerializer
 
@@ -28,7 +27,6 @@ class OwnerShopsList(generics.ListAPIView):
 
 ###### ITEMS #####
 class ItemList(generics.ListCreateAPIView):
-    permission_classes = [AllowAny]
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
 
@@ -39,7 +37,6 @@ class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class ItemListForShop(generics.ListAPIView):
-    permission_classes = [AllowAny]
     serializer_class = ItemSerializer
 
     def get_queryset(self):
