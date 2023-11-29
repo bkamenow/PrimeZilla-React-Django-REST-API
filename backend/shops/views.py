@@ -1,18 +1,19 @@
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
-from django.contrib.auth.decorators import login_required
-
-from .models import Shop, Item, CartItem, AppUser
+from rest_framework.permissions import AllowAny
+from .models import Shop, Item, CartItem
 from .serializers import ShopSerializer, ItemSerializer, CartItemSerializer
 
 
 class ShopList(generics.ListCreateAPIView):
+    permission_classes = [AllowAny]
     queryset = Shop.objects.all()
     serializer_class = ShopSerializer
 
 
 class ShopDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [AllowAny]
     queryset = Shop.objects.all()
     serializer_class = ShopSerializer
 
@@ -27,6 +28,7 @@ class OwnerShopsList(generics.ListAPIView):
 
 ###### ITEMS #####
 class ItemList(generics.ListCreateAPIView):
+    permission_classes = [AllowAny]
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
 
@@ -37,6 +39,7 @@ class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class ItemListForShop(generics.ListAPIView):
+    permission_classes = [AllowAny]
     serializer_class = ItemSerializer
 
     def get_queryset(self):
@@ -62,10 +65,12 @@ class CartItemCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         user = self.request.user
 
-        if user.is_authenticated and hasattr(user, 'appuser'):
-            app_user = user.appuser
+        print(f"User: {user}")
+        if user.is_authenticated and hasattr(user, 'cart'):
+            app_user = user.cart
+            print(f"AppUser: {app_user}")
             serializer.save(user=app_user)
-            app_user.cart.add(serializer.instance)
+            app_user.add(serializer.instance)
         else:
             serializer.save(user=None)
 

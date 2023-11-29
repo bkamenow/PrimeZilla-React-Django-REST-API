@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { loginUser } from "../../services/authService";
-import useAuth from "../../utils/useAuth";
 
 export default function LoginUser({ onClose, onLogin }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { login } = useAuth();
 
     const handleFormClick = (e) => {
         e.stopPropagation();

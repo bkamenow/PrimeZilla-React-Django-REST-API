@@ -48,10 +48,12 @@ class UserLogin(APIView):
             token = jwt.encode(
                 token_payload, 'django-insecure-9p3)vvpdl4%4hl56kz%7qq4ptn-rfe-!_6#qat6!v5zp7!^gud', algorithm='HS256')
 
+            print("Incoming request data:", request.data)
+            print("Token payload:", token)
             # Return the token in the response
             return Response({'token': token, 'user_id': user.user_id}, status=status.HTTP_200_OK)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': 'Invalid email or password'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserLogout(APIView):
@@ -61,15 +63,6 @@ class UserLogout(APIView):
     def post(self, request):
         logout(request)
         return Response(status=status.HTTP_200_OK)
-
-
-class UserView(APIView):
-    permission_classes = (permissions.IsAuthenticated,)
-    authentication_classes = (SessionAuthentication,)
-
-    def get(self, request):
-        serializer = UserSerializer(request.user)
-        return Response({'user': serializer.data}, status=status.HTTP_200_OK)
 
 
 class UserDetailsView(APIView):
@@ -96,3 +89,10 @@ class DeleteUser(APIView):
         user = AppUser.objects.get(pk=pk)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class UsersView(APIView):
+    def get(self, request, format=None):
+        users = AppUser.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
