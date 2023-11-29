@@ -24,3 +24,12 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class CartItem(models.Model):
+    user = models.ForeignKey(AppUser, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.item.name} - Quantity: {self.quantity}"

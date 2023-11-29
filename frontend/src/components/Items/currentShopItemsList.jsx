@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
+
 import { useParams } from "react-router-dom";
 import { getShopItems } from "../../services/shopService";
+
 import "./Items.css";
 import ItemModal from "./ItemModal";
 export default function CurrentShopItemsList() {
