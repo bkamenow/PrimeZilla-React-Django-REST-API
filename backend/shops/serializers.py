@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Shop, Item, CartItem
+from .models import Shop, Item
 
 
 class ItemSerializer(serializers.ModelSerializer):
@@ -17,12 +17,3 @@ class ShopSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shop
         fields = '__all__'
-
-
-class CartItemSerializer(serializers.ModelSerializer):
-    user = serializers.ReadOnlyField(source='user.user_id')
-    item = serializers.PrimaryKeyRelatedField(queryset=Item.objects.all())
-
-    class Meta:
-        model = CartItem
-        fields = ['id', 'user', 'item', 'quantity']

@@ -3,8 +3,6 @@ from django.contrib.auth import get_user_model, authenticate
 from django.core.exceptions import ValidationError
 
 
-from shops.serializers import CartItemSerializer
-
 UserModel = get_user_model()
 
 
@@ -34,8 +32,6 @@ class UserLoginSerializer(Serializer):
 
 
 class UserSerializer(ModelSerializer):
-    cart = CartItemSerializer(many=True, read_only=True)
-
     class Meta:
         model = UserModel
-        fields = ['user_id', 'email', 'username', 'image_url', 'cart']
+        fields = ['user_id', 'email', 'username', 'image_url']

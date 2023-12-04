@@ -2,8 +2,8 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import Shop, Item, CartItem
-from .serializers import ShopSerializer, ItemSerializer, CartItemSerializer
+from .models import Shop, Item
+from .serializers import ShopSerializer, ItemSerializer
 
 
 class ShopList(generics.ListCreateAPIView):
@@ -53,22 +53,3 @@ class CreateItemView(generics.CreateAPIView):
         serializer.save(shop_id=shop_id)
 
 ##### CART #####
-
-
-class CartItemCreateView(generics.ListCreateAPIView):
-    queryset = CartItem.objects.all()
-    serializer_class = CartItemSerializer
-
-    def perform_create(self, serializer):
-        user = self.request.user
-
-        print(f"User: {user}")
-        if user.is_authenticated and hasattr(user, 'cart'):
-            app_user = user.cart
-            print(f"AppUser: {app_user}")
-            serializer.save(user=app_user)
-            app_user.add(serializer.instance)
-        else:
-            serializer.save(user=None)
-
-        return Response(serializer.data, status=status.HTTP_201_CREATED)

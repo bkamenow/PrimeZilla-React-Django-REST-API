@@ -29,8 +29,6 @@ class AppUser(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
 
-    cart = models.ManyToManyField('shops.CartItem', blank=True)
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
