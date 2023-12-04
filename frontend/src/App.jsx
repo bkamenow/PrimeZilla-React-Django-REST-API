@@ -8,6 +8,7 @@ import ItemsList from "./components/Items/ItemsList";
 import CurrentShopItemsList from "./components/Items/CurrentShopItemsList";
 import OwnerShopsList from "./components/Shops/OwnerShopsList/OwnerShopsList";
 import Error404 from "./components/404/404";
+import Cart from "./components/Cart/Cart";
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                 />
                 <Route path='/all-items' element={<ItemsList />} />
                 <Route path='/*' element={<Error404 />} />
+                <Route path='/cart' element={<Cart />} />
             </Routes>
 
             <Footer />

@@ -109,7 +109,7 @@ export default function Navigation() {
                     <Nav>
                         {isAuthenticated ? (
                             <>
-                                <Nav.Link as={Link} to='#cart-list'>
+                                <Nav.Link as={Link} to='/cart'>
                                     <FontAwesomeIcon icon={faCartShopping} />
                                 </Nav.Link>
                                 <Nav.Link as={Link} to='#favorites'>
