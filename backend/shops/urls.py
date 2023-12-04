@@ -15,4 +15,7 @@ urlpatterns = [
 
     path('<int:owner_id>/shops/',
          views.OwnerShopsList.as_view(), name='owner-shops-list'),
+
+    path('cart/', views.CartItemList.as_view(), name='cart'),
+    path('add-to-cart/', views.AddToCart.as_view(), name='add-to-cart'),
 ]

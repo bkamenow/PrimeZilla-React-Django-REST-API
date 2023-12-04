@@ -4,7 +4,7 @@ from accounts.models import AppUser
 
 class Shop(models.Model):
     name = models.CharField(max_length=255)
-    image_url = models.URLField()
+    image_url = models.URLField(null=True, blank=True)
     type = models.CharField(max_length=20)
     description = models.CharField(max_length=155)
     owner = models.ForeignKey(
@@ -24,3 +24,20 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Cart(models.Model):
+    user = models.OneToOneField(
+        AppUser, on_delete=models.CASCADE, related_name='user_cart')
+
+    def __str__(self):
+        return f"Cart for {self.user.username}"
+
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.quantity} x {self.item.name} in {self.cart}"

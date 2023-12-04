@@ -1,9 +1,7 @@
 from rest_framework import generics
-from rest_framework.response import Response
-from rest_framework import status
 
-from .models import Shop, Item
-from .serializers import ShopSerializer, ItemSerializer
+from .models import Shop, Item, Cart, CartItem
+from .serializers import ShopSerializer, ItemSerializer, CartItemSerializer
 
 
 class ShopList(generics.ListCreateAPIView):
@@ -53,3 +51,21 @@ class CreateItemView(generics.CreateAPIView):
         serializer.save(shop_id=shop_id)
 
 ##### CART #####
+
+
+class AddToCart(generics.CreateAPIView):
+    serializer_class = CartItemSerializer
+
+    def perform_create(self, serializer):
+        user = self.request.user
+        cart, created = Cart.objects.get_or_create(user=user)
+        serializer.save(cart=cart)
+
+
+class CartItemList(generics.ListAPIView):
+    serializer_class = CartItemSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        cart, created = Cart.objects.get_or_create(user=user)
+        return CartItem.objects.filter(cart=cart)
