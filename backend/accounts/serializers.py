@@ -1,37 +1,60 @@
-from rest_framework.serializers import ModelSerializer, Serializer, EmailField, CharField
-from django.contrib.auth import get_user_model, authenticate
-from django.core.exceptions import ValidationError
+from django.contrib.auth.password_validation import validate_password
+from rest_framework import serializers
+from django.contrib.auth import get_user_model
 
+from rest_framework.validators import UniqueValidator
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+from .models import AppUser
 
 UserModel = get_user_model()
 
 
-class UserRegisterSerializer(ModelSerializer):
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        token['username'] = user.username
+        token['email'] = user.email
+
+        return token
+
+
+class RegisterSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(
+        write_only=True, required=True, validators=[validate_password])
+    password2 = serializers.CharField(write_only=True, required=True)
+    email = serializers.EmailField(
+        required=True,
+        validators=[UniqueValidator(queryset=AppUser.objects.all())]
+    )
+
     class Meta:
-        model = UserModel
-        fields = '__all__'
+        model = AppUser
+        fields = ('username', 'email', 'password',
+                  'password2',)
 
-    def create(self, clean_data):
-        user_obj = UserModel.objects.create_user(
-            email=clean_data['email'], password=clean_data['password'])
-        user_obj.username = clean_data['username']
-        user_obj.save()
-        return user_obj
+    def validate(self, attrs):
+        if attrs['password'] != attrs['password2']:
+            raise serializers.ValidationError(
+                {"password": "Password fields didn't match."})
 
+        return attrs
 
-class UserLoginSerializer(Serializer):
-    email = EmailField()
-    password = CharField()
+    def create(self, validated_data):
+        user = AppUser.objects.create(
+            username=validated_data['username'],
+            email=validated_data['email'],
+        )
 
-    def check_user(self, clean_data):
-        user = authenticate(
-            username=clean_data['email'], password=clean_data['password'])
-        if not user:
-            raise ValidationError('user not found')
+        user.set_password(validated_data['password'])
+        user.save()
+
         return user
 
 
-class UserSerializer(ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserModel
-        fields = ['user_id', 'email', 'username', 'image_url']
+        fields = '__all__'

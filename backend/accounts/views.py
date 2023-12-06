@@ -1,59 +1,24 @@
-from django.contrib.auth import login, logout
-from rest_framework.authentication import SessionAuthentication
+from django.contrib.auth import logout
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import UserLoginSerializer, UserRegisterSerializer, UserSerializer
-from rest_framework import permissions, status
-from .validators import custom_validation, validate_email, validate_password
-import jwt
-import datetime
+from .serializers import UserSerializer, RegisterSerializer, MyTokenObtainPairSerializer
+from rest_framework import permissions, status, generics
 
+from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import AppUser
 
 
-class UserRegister(APIView):
+class UserRegister(generics.CreateAPIView):
+    queryset = AppUser.objects.all()
     permission_classes = (permissions.AllowAny,)
-
-    def post(self, request):
-        clean_data = custom_validation(request.data)
-        serializer = UserRegisterSerializer(data=clean_data)
-
-        if serializer.is_valid(raise_exception=True):
-            user = serializer.create(clean_data)
-            if user:
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+    serializer_class = RegisterSerializer
 
 
-class UserLogin(APIView):
-    permission_classes = (permissions.AllowAny,)
-    authentication_classes = (SessionAuthentication,)
-
-    def post(self, request):
-        data = request.data
-        assert validate_email(data)
-        assert validate_password(data)
-        serializer = UserLoginSerializer(data=data)
-
-        if serializer.is_valid(raise_exception=True):
-            user = serializer.check_user(data)
-            login(request, user)
-
-            # Create a JWT token
-            token_payload = {
-                'user_id': user.user_id,
-                'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60)
-            }
-            token = jwt.encode(
-                token_payload, 'django-insecure-9p3)vvpdl4%4hl56kz%7qq4ptn-rfe-!_6#qat6!v5zp7!^gud', algorithm='HS256')
-
-            print("Incoming request data:", request.data)
-            print("Token payload:", token)
-            # Return the token in the response
-            return Response({'token': token, 'user_id': user.user_id}, status=status.HTTP_200_OK)
-
-        return Response({'error': 'Invalid email or password'}, status=status.HTTP_400_BAD_REQUEST)
+class UserLogin(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
 
 
 class UserLogout(APIView):
@@ -65,7 +30,17 @@ class UserLogout(APIView):
         return Response(status=status.HTTP_200_OK)
 
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getProfile(request):
+    user = request.user
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
+
+
 class UserDetailsView(APIView):
+    permission_classes = ()
+
     def get(self, request, pk):
         user = AppUser.objects.get(pk=pk)
         serializer = UserSerializer(user)
@@ -73,6 +48,8 @@ class UserDetailsView(APIView):
 
 
 class EditUser(APIView):
+    permission_classes = ()
+
     def put(self, request, pk):
         user = AppUser.objects.get(pk=pk)
         serializer = UserSerializer(user, data=request.data)
@@ -85,6 +62,8 @@ class EditUser(APIView):
 
 
 class DeleteUser(APIView):
+    permission_classes = ()
+
     def delete(self, request, pk):
         user = AppUser.objects.get(pk=pk)
         user.delete()
@@ -96,3 +75,9 @@ class UsersView(APIView):
         users = AppUser.objects.all()
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class CurrentUserView(APIView):
+    def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)

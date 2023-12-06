@@ -15,7 +15,7 @@ export default function LoginUser({ onClose, onLogin }) {
         e.preventDefault();
         loginUser(email, password)
             .then((response) => {
-                const { token, user_id } = response;
+                const { token, user_id, cart_id } = response;
 
                 localStorage.setItem("token", token);
                 localStorage.setItem("userId", user_id);

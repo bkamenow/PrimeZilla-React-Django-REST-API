@@ -26,18 +26,11 @@ class Item(models.Model):
         return self.name
 
 
-class Cart(models.Model):
-    user = models.OneToOneField(
-        AppUser, on_delete=models.CASCADE, related_name='user_cart')
-
-    def __str__(self):
-        return f"Cart for {self.user.username}"
-
-
 class CartItem(models.Model):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    owner = models.ForeignKey(
+        AppUser, on_delete=models.CASCADE, related_name='owner_cart')
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
 
     def __str__(self):
-        return f"{self.quantity} x {self.item.name} in {self.cart}"
+        return f"{self.quantity} x {self.item.name}"

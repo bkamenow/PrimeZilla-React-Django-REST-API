@@ -22,6 +22,7 @@ const useAuth = () => {
         setAuthentication(false);
         localStorage.removeItem("token");
         localStorage.removeItem("userId");
+        localStorage.removeItem("userCart");
     };
 
     return {

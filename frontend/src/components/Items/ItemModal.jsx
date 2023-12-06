@@ -11,9 +11,14 @@ export default function ItemModal({
     shop_name,
     price,
 }) {
+    const userId = localStorage.getItem("userId");
+
     const addItemToCart = async () => {
         try {
-            const result = await add(id);
+            console.log("item:", id);
+            console.log(`user ${userId}`);
+            const result = await add(userId, id);
+            console.log(result);
             return result.data;
         } catch (error) {
             console.error("Error adding to cart:", error);

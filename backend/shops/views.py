@@ -1,21 +1,25 @@
 from rest_framework import generics
-
-from .models import Shop, Item, Cart, CartItem
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from .models import Shop, Item, CartItem
 from .serializers import ShopSerializer, ItemSerializer, CartItemSerializer
 
 
 class ShopList(generics.ListCreateAPIView):
+    permission_classes = [AllowAny]
 
     queryset = Shop.objects.all()
     serializer_class = ShopSerializer
 
 
 class ShopDetail(generics.RetrieveUpdateDestroyAPIView):
+
     queryset = Shop.objects.all()
     serializer_class = ShopSerializer
 
 
 class OwnerShopsList(generics.ListAPIView):
+    permission_classes = [AllowAny]
     serializer_class = ShopSerializer
 
     def get_queryset(self):
@@ -25,16 +29,19 @@ class OwnerShopsList(generics.ListAPIView):
 
 ###### ITEMS #####
 class ItemList(generics.ListCreateAPIView):
+    permission_classes = [AllowAny]
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
 
 
 class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [AllowAny]
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
 
 
 class ItemListForShop(generics.ListAPIView):
+    permission_classes = [AllowAny]
     serializer_class = ItemSerializer
 
     def get_queryset(self):
@@ -43,6 +50,7 @@ class ItemListForShop(generics.ListAPIView):
 
 
 class CreateItemView(generics.CreateAPIView):
+    permission_classes = ()
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
 
@@ -54,18 +62,21 @@ class CreateItemView(generics.CreateAPIView):
 
 
 class AddToCart(generics.CreateAPIView):
+    authentication_classes = [TokenAuthentication,]
+    permission_classes = ()
+    queryset = CartItem.objects.all()
     serializer_class = CartItemSerializer
 
     def perform_create(self, serializer):
-        user = self.request.user
-        cart, created = Cart.objects.get_or_create(user=user)
-        serializer.save(cart=cart)
+        user_id = self.request.user.user_id
+        print(user_id)
+        serializer.save(user_id=user_id)
 
 
-class CartItemList(generics.ListAPIView):
-    serializer_class = CartItemSerializer
+# class CartItemList(generics.ListAPIView):
+#     serializer_class = CartItemSerializer
 
-    def get_queryset(self):
-        user = self.request.user
-        cart, created = Cart.objects.get_or_create(user=user)
-        return CartItem.objects.filter(cart=cart)
+#     def get_queryset(self):
+#         user = self.request.user
+#         cart, created = Cart.objects.get_or_create(user=user)
+#         return CartItem.objects.filter(cart=cart)
