@@ -71,6 +71,8 @@ class DeleteUser(APIView):
 
 
 class UsersView(APIView):
+    permission_classes = ()
+
     def get(self, request, format=None):
         users = AppUser.objects.all()
         serializer = UserSerializer(users, many=True)

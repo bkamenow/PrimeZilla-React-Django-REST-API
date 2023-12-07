@@ -1,5 +1,11 @@
-from rest_framework import generics
-from rest_framework.authentication import TokenAuthentication
+import json
+from .serializers import CartItemSerializer
+from .models import CartItem
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import generics, status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from .models import Shop, Item, CartItem
 from .serializers import ShopSerializer, ItemSerializer, CartItemSerializer
@@ -61,22 +67,33 @@ class CreateItemView(generics.CreateAPIView):
 ##### CART #####
 
 
-class AddToCart(generics.CreateAPIView):
-    authentication_classes = [TokenAuthentication,]
-    permission_classes = ()
-    queryset = CartItem.objects.all()
-    serializer_class = CartItemSerializer
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def add_to_cart(request):
+    user = request.user
+    data = json.loads(request.body)
+    item_id = data.get('itemId')
+    quantity = data.get('quantity', 1)
 
-    def perform_create(self, serializer):
-        user_id = self.request.user.user_id
-        print(user_id)
-        serializer.save(user_id=user_id)
+    item_instance = Item.objects.get(id=item_id)
+
+    # Assuming CartItemSerializer is appropriately defined
+    cart_item, created = CartItem.objects.get_or_create(
+        owner=user, item=item_instance, quantity=quantity)
+
+    # If the item already exists in the cart, increase the quantity
+    if not created:
+        cart_item.quantity += quantity
+        cart_item.save()
+
+    serializer = CartItemSerializer(cart_item)
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-# class CartItemList(generics.ListAPIView):
-#     serializer_class = CartItemSerializer
-
-#     def get_queryset(self):
-#         user = self.request.user
-#         cart, created = Cart.objects.get_or_create(user=user)
-#         return CartItem.objects.filter(cart=cart)
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_cart_items(request):
+    user = request.user
+    cart_items = CartItem.objects.filter(owner=user)
+    serializer = CartItemSerializer(cart_items, many=True)
+    return Response(serializer.data)

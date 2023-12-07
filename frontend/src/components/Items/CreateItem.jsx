@@ -41,6 +41,7 @@ export default function CreateItem({ shopId, shopName, onCreate, onClose }) {
                         <Form.Control
                             type='text'
                             name='name'
+                            placeholder='Name'
                             value={formData.name}
                             onChange={handleChange}
                         />
@@ -50,6 +51,7 @@ export default function CreateItem({ shopId, shopName, onCreate, onClose }) {
                         <Form.Control
                             type='text'
                             name='image_url'
+                            placeholder='Image'
                             value={formData.image_url}
                             onChange={handleChange}
                         />
@@ -59,6 +61,7 @@ export default function CreateItem({ shopId, shopName, onCreate, onClose }) {
                         <Form.Control
                             as='textarea'
                             name='description'
+                            placeholder='Description'
                             value={formData.description}
                             onChange={handleChange}
                         />
@@ -68,6 +71,7 @@ export default function CreateItem({ shopId, shopName, onCreate, onClose }) {
                         <Form.Control
                             type='number'
                             name='price'
+                            placeholder='Price'
                             value={formData.price}
                             onChange={handleChange}
                         />

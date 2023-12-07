@@ -12,13 +12,11 @@ export default function ItemModal({
     price,
 }) {
     const userId = localStorage.getItem("userId");
+    const accessToken = JSON.parse(localStorage.getItem("authTokens")).access;
 
     const addItemToCart = async () => {
         try {
-            console.log("item:", id);
-            console.log(`user ${userId}`);
-            const result = await add(userId, id);
-            console.log(result);
+            const result = await add(userId, id, 1, accessToken);
             return result.data;
         } catch (error) {
             console.error("Error adding to cart:", error);

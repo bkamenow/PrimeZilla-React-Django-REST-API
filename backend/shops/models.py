@@ -28,7 +28,7 @@ class Item(models.Model):
 
 class CartItem(models.Model):
     owner = models.ForeignKey(
-        AppUser, on_delete=models.CASCADE, related_name='owner_cart')
+        AppUser, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
 

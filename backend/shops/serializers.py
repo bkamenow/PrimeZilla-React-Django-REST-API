@@ -22,10 +22,4 @@ class ShopSerializer(serializers.ModelSerializer):
 class CartItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartItem
-        fields = ['item', 'quantity']
-
-    def validate_quantity(self, value):
-        if value <= 0:
-            raise serializers.ValidationError(
-                "Quantity should be greater than zero.")
-        return value
+        fields = '__all__'
