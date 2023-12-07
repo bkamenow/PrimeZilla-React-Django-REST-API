@@ -70,6 +70,15 @@ export default function EditUser({ userId, onClose }) {
                             onChange={onChange}
                         />
                     </Form.Group>
+                    <Form.Group controlId='formImage'>
+                        <Form.Label>Image</Form.Label>
+                        <Form.Control
+                            type='image_url'
+                            name='image_url'
+                            value={values.image_url}
+                            onChange={onChange}
+                        />
+                    </Form.Group>
 
                     <Button variant='dark' type='submit'>
                         Save
