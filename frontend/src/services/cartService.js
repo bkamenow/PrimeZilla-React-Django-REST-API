@@ -53,8 +53,8 @@ export const getAll = async (token) => {
     }
 };
 
-export const getItemDetails = async (itemId, token) => {
-    const url = baseURL + `items/${itemId}/`;
+export const getItemDetails = async (itemId, quantity, token) => {
+    const url = baseURL + `items/${itemId}/?quantity=${quantity}`;
 
     try {
         const response = await fetch(url, {

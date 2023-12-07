@@ -14,7 +14,9 @@ export default function Cart() {
             try {
                 const data = await getAll(accessToken);
                 const detailedItems = await Promise.all(
-                    data.map((item) => getItemDetails(item.item, accessToken))
+                    data.map((item) =>
+                        getItemDetails(item.item, item.quantity, accessToken)
+                    )
                 );
 
                 setCartItems(detailedItems);

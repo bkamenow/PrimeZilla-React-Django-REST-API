@@ -45,6 +45,16 @@ class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
 
+    def get(self, request, *args, **kwargs):
+        instance = self.get_object()
+        quantity = self.request.query_params.get('quantity', 1)
+
+        # Include quantity in the serialized data
+        serialized_data = self.get_serializer(instance).data
+        serialized_data['quantity'] = quantity
+
+        return Response(serialized_data)
+
 
 class ItemListForShop(generics.ListAPIView):
     permission_classes = [AllowAny]
@@ -77,11 +87,9 @@ def add_to_cart(request):
 
     item_instance = Item.objects.get(id=item_id)
 
-    # Assuming CartItemSerializer is appropriately defined
     cart_item, created = CartItem.objects.get_or_create(
-        owner=user, item=item_instance, quantity=quantity)
+        owner=user, item=item_instance)
 
-    # If the item already exists in the cart, increase the quantity
     if not created:
         cart_item.quantity += quantity
         cart_item.save()
