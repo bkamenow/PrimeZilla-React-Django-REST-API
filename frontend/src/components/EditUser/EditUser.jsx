@@ -17,8 +17,12 @@ export default function EditUser({ userId, onClose }) {
         userService
             .getOne(userId)
             .then((response) => {
-                const userData = response.data[userId];
-                setUser(userData);
+                const userData = response[userId];
+                if (userData) {
+                    setUser(userData);
+                } else {
+                    console.error("User not found for userId:", userId);
+                }
             })
             .catch((error) => {
                 console.error("Error fetching user details:", error.message);

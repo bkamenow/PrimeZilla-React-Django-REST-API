@@ -12,12 +12,13 @@ export default function UserDetails({ onClose, onDelete }) {
     const [isDeleting, setIsDeleting] = useState(false);
     const [user, setUser] = useState({});
     const userId = localStorage.getItem("userId");
+    console.log(userId);
 
     useEffect(() => {
         userService
             .getOne(userId)
             .then((response) => {
-                const userData = response.data[userId];
+                const userData = response[userId];
                 setUser(userData);
             })
             .catch((error) => {
@@ -31,15 +32,23 @@ export default function UserDetails({ onClose, onDelete }) {
 
     const handleEditUserClose = async () => {
         setIsEditing(false);
-        try {
-            const response = await userService.getOne(userId);
-            const userData = response.data[userId];
-            setUser(userData);
-        } catch (error) {
-            console.error(
-                "Error fetching updated user details:",
-                error.message
-            );
+
+        if (userId) {
+            try {
+                const response = await userService.getOne(userId);
+                const userData = response[userId];
+
+                if (userData) {
+                    setUser(userData);
+                } else {
+                    console.error("User not found for userId:", userId);
+                }
+            } catch (error) {
+                console.error(
+                    "Error fetching updated user details:",
+                    error.message
+                );
+            }
         }
     };
 

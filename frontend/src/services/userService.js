@@ -46,7 +46,7 @@ export const getOne = async (userId) => {
 };
 
 export const edit = async (userId, userData) => {
-    const url = baseURL + `edit/${userId}/`;
+    const url = baseURL + `edit/${userId}`;
 
     try {
         const response = await fetch(url, {
@@ -81,8 +81,13 @@ export const remove = async (userId) => {
             throw new Error(`Request failed with status ${response.status}`);
         }
 
-        const result = await response.json();
-        return result;
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+            const result = await response.json();
+            return result;
+        } else {
+            return null;
+        }
     } catch (error) {
         console.error(error);
         throw error;
