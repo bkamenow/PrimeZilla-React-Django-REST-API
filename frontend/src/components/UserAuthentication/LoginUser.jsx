@@ -1,32 +1,29 @@
-import React, { useState } from "react";
+import { useState, useContext, useEffect } from "react";
+
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { loginUser } from "../../services/authService";
+import AuthContext from "../../context/AuthContext";
 
-export default function LoginUser({ onClose, onLogin }) {
+export default function LoginUser({ onClose }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    let { loginUser, authTokens } = useContext(AuthContext);
 
     const handleFormClick = (e) => {
         e.stopPropagation();
     };
 
-    function submitLogin(e) {
+    const handleLoginSubmit = async (e) => {
         e.preventDefault();
-        loginUser(email, password)
-            .then((response) => {
-                const { token, user_id, cart_id } = response;
+        await loginUser(e, email, password);
+    };
 
-                localStorage.setItem("token", token);
-                localStorage.setItem("userId", user_id);
-
-                onLogin();
-                onClose();
-            })
-            .catch((error) => {
-                console.error("Login error:", error.message);
-            });
-    }
+    useEffect(() => {
+        if (authTokens) {
+            onClose();
+        }
+    }, [authTokens]);
 
     return (
         <div className='overlay' onClick={onClose}>
@@ -34,7 +31,7 @@ export default function LoginUser({ onClose, onLogin }) {
                 <div className='form-header'>
                     <h3>Login</h3>
                 </div>
-                <Form onSubmit={submitLogin}>
+                <Form onSubmit={handleLoginSubmit}>
                     <Form.Group className='mb-3' controlId='formBasicEmail'>
                         <Form.Label>Email address</Form.Label>
                         <Form.Control

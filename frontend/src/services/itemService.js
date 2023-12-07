@@ -1,17 +1,44 @@
-import client from "./axiosConfig";
+const baseURL = "http://127.0.0.1:8000/api/shops/";
 
 export const getAllItems = async () => {
-    const response = await client.get("shops/items/");
-    return response.data;
+    const url = baseURL + "items/";
+
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
 };
 
 export const createItem = async (shopId, itemData) => {
-    const result = await client.post(`shops/${shopId}/items/create/`, itemData);
-    console.log(itemData);
-    return result.data;
-};
+    const url = baseURL + `${shopId}/items/create/`;
 
-// export const deleteItem = async (itemId) => {
-//     const result = await client.delete(`shops/items/${itemId}`);
-//     return result;
-// };
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(itemData),
+        });
+
+        if (!response.ok) {
+            throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log(itemData);
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};

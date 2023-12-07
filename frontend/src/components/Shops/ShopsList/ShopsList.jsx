@@ -21,7 +21,7 @@ export default function ShopsList() {
         };
 
         fetchData();
-    }, []);
+    }, [setShops]);
 
     return (
         <div className='background'>

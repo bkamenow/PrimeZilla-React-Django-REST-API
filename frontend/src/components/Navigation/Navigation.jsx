@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
-import { logoutUser } from "../../services/authService";
+import AuthContext from "../../context/AuthContext";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -14,7 +14,6 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import RegisterUser from "../UserAuthentication/RegisterUser";
 import LoginUser from "../UserAuthentication/LoginUser";
 import CreateShop from "../Shops/CreateShop/CreateShop";
-import useAuth from "../../utils/useAuth";
 import UserDetails from "../UserDetails/UserDetails";
 
 export default function Navigation() {
@@ -22,9 +21,7 @@ export default function Navigation() {
     const [showLogin, setShowLogin] = useState(false);
     const [showProfileDetails, setShowProfileDetails] = useState(false);
     const [showCreateShop, setShowCreateShop] = useState(false);
-    const { isAuthenticated, logout, login } = useAuth();
-
-    useEffect(() => {}, [isAuthenticated]);
+    let { authTokens, logoutUser } = useContext(AuthContext);
 
     const createShopClickHandler = () => {
         setShowCreateShop(true);
@@ -63,9 +60,7 @@ export default function Navigation() {
     };
 
     const handleLogout = () => {
-        logoutUser().then(() => {
-            logout();
-        });
+        logoutUser();
     };
 
     return (
@@ -107,7 +102,7 @@ export default function Navigation() {
                         </Nav.Link>
                     </Nav>
                     <Nav>
-                        {isAuthenticated ? (
+                        {authTokens ? (
                             <>
                                 <Nav.Link as={Link} to='/cart'>
                                     <FontAwesomeIcon icon={faCartShopping} />

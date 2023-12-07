@@ -1,43 +1,144 @@
-import client from "./axiosConfig";
+const baseURL = "http://127.0.0.1:8000/api/shops/";
 
 export const getAllShops = async () => {
-    const response = await client.get("/shops/");
-    return response.data;
+    const url = baseURL;
+
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
 };
 
 export const getOneShop = async (shopId) => {
-    const result = await client.get(`/shops/${shopId}/`);
+    const url = baseURL + `${shopId}/`;
 
-    return result;
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
 };
 
 export const createShop = async (formData) => {
     const owner = localStorage.getItem("userId");
     formData = { ...formData, owner };
 
-    const response = await client.post("/shops/", formData);
-    const createdShop = response.data;
+    const url = baseURL + "";
 
-    return createdShop;
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+        });
+
+        if (!response.ok) {
+            throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const createdShop = await response.json();
+        return createdShop;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
 };
 
 export const editShop = async (shopId, shopData) => {
-    const result = await client.put(`/shops/${shopId}/`, shopData);
+    const url = baseURL + `${shopId}/`;
 
-    return result;
+    try {
+        const response = await fetch(url, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(shopData),
+        });
+
+        if (!response.ok) {
+            throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
 };
 
 export const deleteShop = async (shopId) => {
-    const result = await client.delete(`shops/${shopId}/`);
-    return result;
+    const url = baseURL + `${shopId}/`;
+
+    try {
+        const response = await fetch(url, {
+            method: "DELETE",
+        });
+
+        if (!response.ok) {
+            throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
 };
 
 export const getShopItems = async (shopId) => {
-    const response = await client.get(`/shops/${shopId}/items`);
-    return response.data;
+    const url = baseURL + `${shopId}/items`;
+
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
 };
 
 export const getOwnerShops = async (userId) => {
-    const response = await client.get(`/shops/${userId}/shops`);
-    return response.data;
+    const url = baseURL + `${userId}/shops`;
+
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
 };
