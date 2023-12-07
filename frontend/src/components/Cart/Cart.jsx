@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
 import CloseButton from "react-bootstrap/CloseButton";
-import { getAll, getItemDetails } from "../../services/cartService";
+import { getAll, getItemDetails, remove } from "../../services/cartService";
 import "./Cart.css";
 
 export default function Cart() {
@@ -26,7 +26,19 @@ export default function Cart() {
         };
 
         fetchCartItems();
-    }, []);
+    }, [setCartItems]);
+
+    const handleRemoveItem = async (itemId) => {
+        try {
+            await remove(itemId, accessToken);
+            // Remove the deleted item from the cartItems state
+            setCartItems((prevCartItems) =>
+                prevCartItems.filter((item) => item.id !== itemId)
+            );
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     return (
         <div className='header-container cart-main'>
@@ -46,10 +58,12 @@ export default function Cart() {
                                         {item.quantity}
                                     </div>
                                     <div className='cart-item-price'>
-                                        {item.price}$
+                                        {item.price * item.quantity}$
                                     </div>
                                 </div>
-                                <CloseButton />
+                                <CloseButton
+                                    onClick={() => handleRemoveItem(item.id)}
+                                />
                             </ListGroup.Item>
                         ))}
 
@@ -65,5 +79,5 @@ export default function Cart() {
 }
 
 const calculateTotal = (items) => {
-    return items.reduce((total, item) => total + item.price, 0);
+    return items.reduce((total, item) => total + item.price * item.quantity, 0);
 };

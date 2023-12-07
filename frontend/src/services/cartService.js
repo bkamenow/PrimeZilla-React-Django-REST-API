@@ -76,3 +76,25 @@ export const getItemDetails = async (itemId, quantity, token) => {
         throw error;
     }
 };
+
+export const remove = async (itemId, token) => {
+    const url = baseURL + `remove-from-cart/${itemId}/`;
+
+    try {
+        const response = await fetch(url, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        return true; // Indicates successful removal
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};

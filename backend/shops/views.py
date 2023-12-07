@@ -105,3 +105,16 @@ def get_cart_items(request):
     cart_items = CartItem.objects.filter(owner=user)
     serializer = CartItemSerializer(cart_items, many=True)
     return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def remove_from_cart(request, item_id):
+    user = request.user
+
+    try:
+        cart_item = CartItem.objects.get(owner=user, item=item_id)
+        cart_item.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    except CartItem.DoesNotExist:
+        return Response({'error': 'Item not found in the cart.'}, status=status.HTTP_404_NOT_FOUND)
