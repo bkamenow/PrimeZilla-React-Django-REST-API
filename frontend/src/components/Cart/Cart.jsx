@@ -120,6 +120,7 @@ export default function Cart() {
                                                     </h5>
                                                 </div>
                                                 <CloseButton
+                                                    className='closebtn'
                                                     onClick={() =>
                                                         handleRemoveItem(
                                                             item.id
@@ -130,14 +131,17 @@ export default function Cart() {
                                         </div>
                                     </div>
                                 ))}
-                                <div className='card'>
-                                    <div className='card-body'>
+                                <div className='card card-total'>
+                                    <div className='card-body cart-pay-total'>
                                         <button
                                             type='button'
                                             className='btn btn-warning btn-block btn-lg'
                                         >
                                             Proceed to Pay
                                         </button>
+                                        <h3 className='total-price'>
+                                            Total: ${calculateTotal(cartItems)}
+                                        </h3>
                                     </div>
                                 </div>
                             </div>
