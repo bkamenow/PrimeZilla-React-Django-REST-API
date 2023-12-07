@@ -81,7 +81,10 @@ export default function Navigation() {
             {showProfileDetails && (
                 <UserDetails
                     onClose={hideProfileDetails}
-                    onDelete={handleLogout}
+                    onDelete={() => {
+                        handleLogout();
+                        hideProfileDetails();
+                    }}
                 />
             )}
 

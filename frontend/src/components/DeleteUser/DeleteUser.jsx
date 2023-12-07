@@ -11,8 +11,8 @@ export default function DeleteUser({ userId, onClose, onDelete }) {
         try {
             await remove(userId);
             onDelete();
-            navigate("/");
             onClose();
+            navigate("/");
         } catch (error) {
             console.error("Error deleting user:", error.message);
         }

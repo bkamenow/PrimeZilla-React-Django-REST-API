@@ -12,7 +12,6 @@ export default function UserDetails({ onClose, onDelete }) {
     const [isDeleting, setIsDeleting] = useState(false);
     const [user, setUser] = useState({});
     const userId = localStorage.getItem("userId");
-    console.log(userId);
 
     useEffect(() => {
         userService
