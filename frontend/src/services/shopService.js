@@ -95,6 +95,10 @@ export const deleteShop = async (shopId) => {
             method: "DELETE",
         });
 
+        if (response.status === 204) {
+            return null;
+        }
+
         if (!response.ok) {
             throw new Error(`Request failed with status ${response.status}`);
         }

@@ -2,19 +2,17 @@ import { useState } from "react";
 import { deleteShop } from "../../../services/shopService";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useNavigate } from "react-router-dom";
 
-export default function DeleteShop({ shopId, shopName, onClose }) {
-    const show = useState(true);
-    const navigate = useNavigate();
+export default function DeleteShop({ shopId, shopName, onClose, onDelete }) {
+    const [show, setShow] = useState(true);
 
     const handleDelete = async () => {
         try {
             await deleteShop(shopId);
-            navigate("/your-shops");
+            onDelete();
             onClose();
         } catch (error) {
-            console.error("Error deleting user:", error.message);
+            console.error("Error deleting shop:", error.message);
         }
     };
 

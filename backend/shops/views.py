@@ -19,7 +19,7 @@ class ShopList(generics.ListCreateAPIView):
 
 
 class ShopDetail(generics.RetrieveUpdateDestroyAPIView):
-
+    permission_classes = [AllowAny]
     queryset = Shop.objects.all()
     serializer_class = ShopSerializer
 

@@ -98,6 +98,7 @@ export default function OwnerShopsList() {
                     onClose={handleDeleteShopClose}
                     shopId={shopId}
                     shopName={shopName}
+                    onDelete={handleDeleteShopClose}
                 />
             )}
 
