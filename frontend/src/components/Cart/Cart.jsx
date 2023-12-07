@@ -31,7 +31,6 @@ export default function Cart() {
     const handleRemoveItem = async (itemId) => {
         try {
             await remove(itemId, accessToken);
-            // Remove the deleted item from the cartItems state
             setCartItems((prevCartItems) =>
                 prevCartItems.filter((item) => item.id !== itemId)
             );
@@ -40,44 +39,112 @@ export default function Cart() {
         }
     };
 
+    const calculateTotal = (items) => {
+        return items.reduce(
+            (total, item) => total + item.price * item.quantity,
+            0
+        );
+    };
+
     return (
         <div className='header-container cart-main'>
             <div className='header-overlay'>
-                <div className='cart-scroll-container'>
-                    <ListGroup className='cart-container' id='cart'>
-                        {cartItems.map((item) => (
-                            <ListGroup.Item key={item.id}>
-                                <div className='cart-item-info'>
-                                    <div className='cart-item-image'>
-                                        <img src={item.image_url} alt='img' />
+                <section className='h-100'>
+                    <div className='container h-100 py-5'>
+                        <div className='row d-flex justify-content-center align-items-center h-100'>
+                            <div className='col-10'>
+                                <div className='d-flex justify-content-between align-items-center mb-4'>
+                                    <h3 className='fw-normal mb-0 text-black'>
+                                        Shopping Cart
+                                    </h3>
+                                </div>
+                                {cartItems.map((item) => (
+                                    <div
+                                        className='card rounded-3 mb-4'
+                                        key={item.id}
+                                    >
+                                        <div className='card-body p-4'>
+                                            <div className='row d-flex justify-content-between align-items-center'>
+                                                <div className='col-md-2 col-lg-2 col-xl-2'>
+                                                    <img
+                                                        src={item.image_url}
+                                                        className='img-fluid rounded-3'
+                                                        alt='image'
+                                                    />
+                                                </div>
+                                                <div className='col-md-3 col-lg-3 col-xl-3'>
+                                                    <p className='lead fw-normal mb-2'>
+                                                        {item.name}
+                                                    </p>
+                                                </div>
+                                                <div className='col-md-3 col-lg-3 col-xl-2 d-flex'>
+                                                    <button
+                                                        className='btn btn-link px-2'
+                                                        onClick={() =>
+                                                            handleQuantityChange(
+                                                                item.id,
+                                                                -1
+                                                            )
+                                                        }
+                                                    >
+                                                        <i className='fas fa-minus'></i>
+                                                    </button>
+
+                                                    <input
+                                                        id='form1'
+                                                        min='0'
+                                                        name='quantity'
+                                                        value={item.quantity}
+                                                        type='number'
+                                                        className='form-control form-control-sm'
+                                                    />
+
+                                                    <button
+                                                        className='btn btn-link px-2'
+                                                        onClick={() =>
+                                                            handleQuantityChange(
+                                                                item.id,
+                                                                1
+                                                            )
+                                                        }
+                                                    >
+                                                        <i className='fas fa-plus'></i>
+                                                    </button>
+                                                </div>
+
+                                                <div className='col-md-3 col-lg-2 col-xl-2 offset-lg-1'>
+                                                    <h5 className='mb-0'>
+                                                        $
+                                                        {item.price *
+                                                            item.quantity}
+                                                    </h5>
+                                                </div>
+                                                <CloseButton
+                                                    onClick={() =>
+                                                        handleRemoveItem(
+                                                            item.id
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className='cart-item-name'>
-                                        {item.name}
-                                    </div>
-                                    <div className='cart-item-quantity'>
-                                        {item.quantity}
-                                    </div>
-                                    <div className='cart-item-price'>
-                                        {item.price * item.quantity}$
+                                ))}
+                                <div className='card'>
+                                    <div className='card-body'>
+                                        <button
+                                            type='button'
+                                            className='btn btn-warning btn-block btn-lg'
+                                        >
+                                            Proceed to Pay
+                                        </button>
                                     </div>
                                 </div>
-                                <CloseButton
-                                    onClick={() => handleRemoveItem(item.id)}
-                                />
-                            </ListGroup.Item>
-                        ))}
-
-                        <ListGroup.Item className='cart-total'>
-                            <Button variant='success'>Buy</Button>
-                            <p>Total: {calculateTotal(cartItems)}$</p>
-                        </ListGroup.Item>
-                    </ListGroup>
-                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     );
 }
-
-const calculateTotal = (items) => {
-    return items.reduce((total, item) => total + item.price * item.quantity, 0);
-};
