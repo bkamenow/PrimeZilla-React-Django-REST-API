@@ -40,8 +40,8 @@ export const AuthProvider = ({ children }) => {
             if (response.status === 200) {
                 setAuthTokens(data);
                 setUser(jwt_decode.jwtDecode(data.access));
-                console.log(authTokens);
-                console.log(user);
+
+                localStorage.setItem("userId", data.user_id);
                 localStorage.setItem("authTokens", JSON.stringify(data));
             } else {
                 throw new Error("Authentication failed");
@@ -56,6 +56,7 @@ export const AuthProvider = ({ children }) => {
         setAuthTokens(null);
         setUser(null);
         localStorage.removeItem("authTokens");
+        localStorage.removeItem("userId");
     };
 
     const updateToken = async () => {
@@ -75,6 +76,7 @@ export const AuthProvider = ({ children }) => {
         if (response.status === 200) {
             setAuthTokens(data);
             setUser(jwt_decode.jwtDecode(data.access));
+
             localStorage.setItem("authTokens", JSON.stringify(data));
         } else {
             logoutUser();

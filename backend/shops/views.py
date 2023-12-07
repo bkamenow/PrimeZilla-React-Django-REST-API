@@ -29,7 +29,7 @@ class OwnerShopsList(generics.ListAPIView):
 
 ###### ITEMS #####
 class ItemList(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
 

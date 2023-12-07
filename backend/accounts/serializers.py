@@ -17,8 +17,16 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         token['username'] = user.username
         token['email'] = user.email
+        token['user_id'] = user.id
 
         return token
+
+    def validate(self, attrs):
+        data = super().validate(attrs)
+
+        data['user_id'] = self.user.id
+
+        return data
 
 
 class RegisterSerializer(serializers.ModelSerializer):
