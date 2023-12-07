@@ -27,11 +27,16 @@
     padding-top: 0 !important;
 }
 
-.total-price {
+.total-price,
+.closebtn {
     color: white;
 }
 
 .card-total,
 .closebtn {
-    background-color: #212529;
+    background-color: #212529 !important;
+}
+
+.col-md-3 {
+    color: white !important;
 }
