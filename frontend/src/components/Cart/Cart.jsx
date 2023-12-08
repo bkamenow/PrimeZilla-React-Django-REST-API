@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ListGroup from "react-bootstrap/ListGroup";
-import Button from "react-bootstrap/Button";
+
 import CloseButton from "react-bootstrap/CloseButton";
 import { getAll, getItemDetails, remove } from "../../services/cartService";
 import "./Cart.css";
@@ -78,15 +77,7 @@ export default function Cart() {
                                                     </p>
                                                 </div>
                                                 <div className='col-md-3 col-lg-3 col-xl-2 d-flex'>
-                                                    <button
-                                                        className='btn btn-link px-2'
-                                                        onClick={() =>
-                                                            handleQuantityChange(
-                                                                item.id,
-                                                                -1
-                                                            )
-                                                        }
-                                                    >
+                                                    <button className='btn btn-link px-2'>
                                                         <i className='fas fa-minus'></i>
                                                     </button>
 
@@ -99,15 +90,7 @@ export default function Cart() {
                                                         className='form-control form-control-sm'
                                                     />
 
-                                                    <button
-                                                        className='btn btn-link px-2'
-                                                        onClick={() =>
-                                                            handleQuantityChange(
-                                                                item.id,
-                                                                1
-                                                            )
-                                                        }
-                                                    >
+                                                    <button className='btn btn-link px-2'>
                                                         <i className='fas fa-plus'></i>
                                                     </button>
                                                 </div>

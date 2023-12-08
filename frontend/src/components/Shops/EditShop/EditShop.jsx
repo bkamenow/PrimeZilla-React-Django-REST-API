@@ -18,12 +18,12 @@ export default function EditShop({ onClose, shopId }) {
         shopService
             .getOneShop(shopId)
             .then((response) => {
-                const shopData = response.data;
-                setShop(shopData);
+                setShop(response);
             })
             .catch((error) => {
                 console.error("Error fetching user details:", error.message);
             });
+        console.log("Updated Shop Data:", shop);
     }, [shopId]);
 
     const editShopSubmitHandler = async (values) => {
@@ -43,7 +43,7 @@ export default function EditShop({ onClose, shopId }) {
             <div className='overlay' onClick={onClose}>
                 <div className='form-box' onClick={(e) => e.stopPropagation()}>
                     <div className='form-header'>
-                        <h3>Create Shop</h3>
+                        <h3>Edit Shop</h3>
                     </div>
                     <Form onSubmit={onSubmit}>
                         <Form.Group className='mb-3'>
