@@ -6,6 +6,7 @@ import "./Cart.css";
 
 export default function Cart() {
     const [cartItems, setCartItems] = useState([]);
+    const [totalPrice, setTotalPrice] = useState(0);
     const accessToken = JSON.parse(localStorage.getItem("authTokens")).access;
 
     useEffect(() => {
@@ -26,6 +27,24 @@ export default function Cart() {
 
         fetchCartItems();
     }, [setCartItems]);
+
+    useEffect(() => {
+        // Calculate the total price whenever the cart items or their quantities change
+        const total = cartItems.reduce(
+            (total, item) => total + item.price * item.quantity,
+            0
+        );
+        setTotalPrice(total);
+    }, [cartItems]);
+
+    const handleQuantityChange = (itemId, newQuantity) => {
+        // Update the quantity of the item in the cartItems state
+        setCartItems((prevCartItems) =>
+            prevCartItems.map((item) =>
+                item.id === itemId ? { ...item, quantity: newQuantity } : item
+            )
+        );
+    };
 
     const handleRemoveItem = async (itemId) => {
         try {
@@ -77,7 +96,19 @@ export default function Cart() {
                                                     </p>
                                                 </div>
                                                 <div className='col-md-3 col-lg-3 col-xl-2 d-flex'>
-                                                    <button className='btn btn-link px-2'>
+                                                    <button
+                                                        className='btn btn-link px-2'
+                                                        onClick={() =>
+                                                            handleQuantityChange(
+                                                                item.id,
+                                                                Math.max(
+                                                                    item.quantity -
+                                                                        1,
+                                                                    0
+                                                                )
+                                                            )
+                                                        }
+                                                    >
                                                         <i className='fas fa-minus'></i>
                                                     </button>
 
@@ -85,12 +116,33 @@ export default function Cart() {
                                                         id='form1'
                                                         min='0'
                                                         name='quantity'
-                                                        value={item.quantity}
+                                                        defaultValue={
+                                                            item.quantity
+                                                        }
                                                         type='number'
                                                         className='form-control form-control-sm'
+                                                        onChange={(e) =>
+                                                            handleQuantityChange(
+                                                                item.id,
+                                                                parseInt(
+                                                                    e.target
+                                                                        .value,
+                                                                    10
+                                                                )
+                                                            )
+                                                        }
                                                     />
 
-                                                    <button className='btn btn-link px-2'>
+                                                    <button
+                                                        className='btn btn-link px-2'
+                                                        onClick={() =>
+                                                            handleQuantityChange(
+                                                                item.id,
+                                                                item.quantity +
+                                                                    1
+                                                            )
+                                                        }
+                                                    >
                                                         <i className='fas fa-plus'></i>
                                                     </button>
                                                 </div>
@@ -123,7 +175,7 @@ export default function Cart() {
                                             Proceed to Pay
                                         </button>
                                         <h3 className='total-price'>
-                                            Total: ${calculateTotal(cartItems)}
+                                            Total: ${totalPrice}
                                         </h3>
                                     </div>
                                 </div>
