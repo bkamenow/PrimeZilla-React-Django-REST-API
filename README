@@ -46,24 +46,24 @@ For the backend:
 
 #Screenshots
 
-Home Page
-![home](home.png)
-![home2](home2.png)
+Home
+![home](./frontend/public/images/readme-imgs/home.png)
+![home2](./frontend/public/images/readme-imgs/home2.png)
 
 Carousel
-![carousel](carousel.png)
+![carousel](./frontend/public/images/readme-imgs/carousel.png)
 
 Shops
-![Shops](shops.png)
+![Shops](./frontend/public/images/readme-imgs/shops.png)
 
 Your Shops
-![your shops](your-shops.png)
+![your shops](./frontend/public/images/readme-imgs/your-shops.png)
 
 Items
-![items](items.png)
+![items](./frontend/public/images/readme-imgs/items.png)
 
 Cart
-![cart](cart.png)
+![cart](./frontend/public/images/readme-imgs/cart.png)
 
 **Contact**
 For any questions or inquiries, feel free to reach out to us at https://www.linkedin.com/in/bkamenow/
