@@ -50,7 +50,7 @@ export default function ShopsList() {
                                     View Shop
                                 </Button>
                             ) : (
-                                <Button variant='dark'>Comming Soon</Button>
+                                <Button variant='dark'>Coming Soon</Button>
                             )}
                         </Card.Body>
                     </Card>
