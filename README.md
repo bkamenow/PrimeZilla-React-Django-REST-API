@@ -29,7 +29,7 @@ Biotics is built using Django, a high-level Python web framework, along with HTM
 
 # Installation
 
-1. Clone the repository: git clone **git@github.com:bkamenow/PrimeZilla-React-Django-REST-API.git**
+1. Clone the repository: git clone **[git@github.com:bkamenow/PrimeZilla-React-Django-REST-API.git](https://github.com/bkamenow/PrimeZilla-React-Django-REST-API.git)**
 
 For the frontend:
 
