@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 
 import { add } from "../../services/cartService";
+import { useCart } from "../../context/CartContext";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -25,10 +26,12 @@ export default function ItemModal({
     const accessToken = authTokens ? authTokens.access : null;
     const [showEditItem, setShowEditItem] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
+    const { addToCart } = useCart();
 
     const addItemToCart = async () => {
         try {
             const result = await add(userId, id, 1, accessToken);
+            addToCart(result.data);
             return result.data;
         } catch (error) {
             console.error("Error adding to cart:", error);

@@ -1,8 +1,9 @@
 import { useState, useContext, useEffect } from "react";
 
+import AuthContext from "../../context/AuthContext";
+
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import AuthContext from "../../context/AuthContext";
 
 export default function LoginUser({ onClose }) {
     const [email, setEmail] = useState("");

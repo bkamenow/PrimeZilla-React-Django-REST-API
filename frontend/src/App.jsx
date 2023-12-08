@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 
 import { AuthProvider } from "./context/AuthContext";
+import { CartProvider } from "./context/CartContext";
 import Path from "./paths";
 
 import Footer from "./components/Footer/Footer";
@@ -19,20 +20,25 @@ function App() {
     return (
         <div className='back'>
             <AuthProvider>
-                <Navigation />
-                <Routes>
-                    <Route path={Path.Home} element={<Home />} />
-                    <Route path={Path.Shops} element={<ShopsList />} />
-                    <Route path={Path.YourShops} element={<OwnerShopsList />} />
-                    <Route
-                        path={Path.ShopItems}
-                        element={<CurrentShopItemsList />}
-                    />
-                    <Route path={Path.AllItems} element={<ItemsList />} />
-                    <Route path={Path.Error} element={<Error404 />} />
-                    <Route path={Path.Cart} element={<Cart />} />
-                </Routes>
-                <Footer />
+                <CartProvider>
+                    <Navigation />
+                    <Routes>
+                        <Route path={Path.Home} element={<Home />} />
+                        <Route path={Path.Shops} element={<ShopsList />} />
+                        <Route
+                            path={Path.YourShops}
+                            element={<OwnerShopsList />}
+                        />
+                        <Route
+                            path={Path.ShopItems}
+                            element={<CurrentShopItemsList />}
+                        />
+                        <Route path={Path.AllItems} element={<ItemsList />} />
+                        <Route path={Path.Error} element={<Error404 />} />
+                        <Route path={Path.Cart} element={<Cart />} />
+                    </Routes>
+                    <Footer />
+                </CartProvider>
             </AuthProvider>
         </div>
     );

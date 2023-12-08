@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
+
 import { getAllItems } from "../../services/itemService";
+
 import ItemModal from "./ItemModal";
 
 export default function ItemsList() {

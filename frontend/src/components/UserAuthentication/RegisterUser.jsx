@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+
+import { registerUser } from "../../services/userService";
+
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { registerUser } from "../../services/userService";
 
 export default function RegisterUser({ onClose }) {
     const [email, setEmail] = useState("");

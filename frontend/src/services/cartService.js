@@ -22,7 +22,7 @@ export const add = async (userId, itemId, quantity = 1, token) => {
         }
 
         const data = await response.json();
-        console.log(data);
+
         return data;
     } catch (error) {
         console.error(error);

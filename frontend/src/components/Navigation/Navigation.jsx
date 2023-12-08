@@ -1,12 +1,15 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import { getAll } from "../../services/cartService";
+import { useCart } from "../../context/CartContext";
 import AuthContext from "../../context/AuthContext";
 import Path from "../../paths";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faHeart } from "@fortawesome/free-solid-svg-icons";
 
+import "./Navigation.css";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
@@ -22,6 +25,8 @@ export default function Navigation() {
     const [showLogin, setShowLogin] = useState(false);
     const [showProfileDetails, setShowProfileDetails] = useState(false);
     const [showCreateShop, setShowCreateShop] = useState(false);
+    const [cartItemCount, setCartItemCount] = useState(0);
+    const { cartState } = useCart();
     let { authTokens, logoutUser } = useContext(AuthContext);
 
     const createShopClickHandler = () => {
@@ -62,6 +67,20 @@ export default function Navigation() {
 
     const handleLogout = () => {
         logoutUser();
+    };
+
+    useEffect(() => {
+        getCartItemCount();
+    }, [cartState]);
+
+    const getCartItemCount = async () => {
+        try {
+            const cartItems = await getAll(authTokens.access);
+            const itemCount = cartItems.length;
+            setCartItemCount(itemCount);
+        } catch (error) {
+            console.error("Error fetching cart items:", error);
+        }
     };
 
     return (
@@ -110,6 +129,14 @@ export default function Navigation() {
                             <>
                                 <Nav.Link as={Link} to={Path.Cart}>
                                     <FontAwesomeIcon icon={faCartShopping} />
+                                    {cartItemCount > 0 && (
+                                        <span
+                                            className='badge badge-warning'
+                                            id='lblCartCount'
+                                        >
+                                            {cartItemCount}
+                                        </span>
+                                    )}
                                 </Nav.Link>
                                 <Nav.Link as={Link} to='/favorites'>
                                     <FontAwesomeIcon icon={faHeart} />
