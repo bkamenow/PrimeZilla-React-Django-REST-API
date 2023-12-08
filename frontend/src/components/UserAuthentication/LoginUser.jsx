@@ -1,13 +1,12 @@
 import { useState, useContext, useEffect } from "react";
-
 import AuthContext from "../../context/AuthContext";
-
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 export default function LoginUser({ onClose }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errors, setErrors] = useState({ email: "", password: "" });
 
     let { loginUser, authTokens } = useContext(AuthContext);
 
@@ -15,9 +14,31 @@ export default function LoginUser({ onClose }) {
         e.stopPropagation();
     };
 
+    const validateForm = () => {
+        let isValid = true;
+        const newErrors = { email: "", password: "" };
+
+        if (!email.trim()) {
+            newErrors.email = "Email is required";
+            isValid = false;
+        }
+
+        if (!password.trim()) {
+            newErrors.password = "Password is required";
+            isValid = false;
+        }
+
+        setErrors(newErrors);
+
+        return isValid;
+    };
+
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
-        await loginUser(e, email, password);
+
+        if (validateForm()) {
+            await loginUser(e, email, password);
+        }
     };
 
     useEffect(() => {
@@ -41,6 +62,9 @@ export default function LoginUser({ onClose }) {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
+                        {errors.email && (
+                            <p className='error'>{errors.email}</p>
+                        )}
                     </Form.Group>
                     <Form.Group className='mb-3' controlId='formBasicPassword'>
                         <Form.Label>Password</Form.Label>
@@ -50,6 +74,9 @@ export default function LoginUser({ onClose }) {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
+                        {errors.password && (
+                            <p className='error'>{errors.password}</p>
+                        )}
                     </Form.Group>
                     <div className='form-btns'>
                         <Button variant='dark' type='submit'>

@@ -117,3 +117,9 @@ span.input-group-addon {
     margin-top: 10px;
     justify-content: center;
 }
+
+
+.error {
+    color: red;
+    margin-top: 5px;
+}
