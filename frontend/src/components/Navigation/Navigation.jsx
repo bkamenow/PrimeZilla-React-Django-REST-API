@@ -76,8 +76,12 @@ export default function Navigation() {
     const getCartItemCount = async () => {
         try {
             const cartItems = await getAll(authTokens.access);
-            const itemCount = cartItems.length;
-            setCartItemCount(itemCount);
+            const totalQuantity = cartItems.reduce(
+                (total, cartItem) => total + cartItem.quantity,
+                0
+            );
+
+            setCartItemCount(totalQuantity);
         } catch (error) {
             console.error("Error fetching cart items:", error);
         }
