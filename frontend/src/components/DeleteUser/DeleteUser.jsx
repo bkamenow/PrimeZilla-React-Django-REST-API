@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { remove } from "../../services/userService";
+
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useNavigate } from "react-router-dom";
 
 export default function DeleteUser({ userId, onClose, onDelete }) {
     const show = useState(true);

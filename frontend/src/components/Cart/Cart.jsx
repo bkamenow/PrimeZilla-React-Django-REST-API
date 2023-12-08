@@ -33,7 +33,6 @@ export default function Cart() {
     }, [setCartItems]);
 
     useEffect(() => {
-        // Calculate the total price whenever the cart items or their quantities change
         const total = cartItems.reduce(
             (total, item) => total + item.price * item.quantity,
             0
@@ -42,7 +41,6 @@ export default function Cart() {
     }, [cartItems]);
 
     const handleQuantityChange = (itemId, newQuantity) => {
-        // Update the quantity of the item in the cartItems state
         setCartItems((prevCartItems) =>
             prevCartItems.map((item) =>
                 item.id === itemId ? { ...item, quantity: newQuantity } : item
