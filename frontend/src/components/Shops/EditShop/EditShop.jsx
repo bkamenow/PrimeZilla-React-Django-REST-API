@@ -23,7 +23,6 @@ export default function EditShop({ onClose, shopId }) {
             .catch((error) => {
                 console.error("Error fetching user details:", error.message);
             });
-        console.log("Updated Shop Data:", shop);
     }, [shopId]);
 
     const editShopSubmitHandler = async (values) => {

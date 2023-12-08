@@ -1,11 +1,14 @@
-import { useEffect } from "react";
+import { useState, useCallback } from "react";
+
 import { add } from "../../services/cartService";
+import { getShopItems } from "../../services/shopService";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faHeart } from "@fortawesome/free-solid-svg-icons";
 
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import EditItem from "./EditItem";
 
 export default function ItemModal({
     id,
@@ -15,12 +18,11 @@ export default function ItemModal({
     shop_name,
     owner,
     price,
+    onItemUpdate,
 }) {
     const userId = localStorage.getItem("userId");
     const accessToken = JSON.parse(localStorage.getItem("authTokens")).access;
-
-    console.log("user id", userId);
-    console.log("owner id", owner);
+    const [showEditItem, setShowEditItem] = useState(false);
 
     const addItemToCart = async () => {
         try {
@@ -31,35 +33,55 @@ export default function ItemModal({
         }
     };
 
-    useEffect(() => {
-        console.log("Component re-rendered");
-    }, [userId]);
+    const editItemClickHandler = useCallback(() => {
+        setShowEditItem(true);
+    }, []);
+
+    const hideEditShop = useCallback(async () => {
+        setShowEditItem(false);
+        onItemUpdate();
+    }, [onItemUpdate]);
 
     return (
-        <Card style={{ width: "18rem" }} key={id}>
-            <Card.Img variant='top' src={image_url} alt={name} />
-            <Card.Body>
-                <Card.Title>{name}</Card.Title>
-                <Card.Text>{description}</Card.Text>
-                <Card.Text>Shop: {shop_name}</Card.Text>
-                <Card.Text>{price}$</Card.Text>
+        <>
+            {showEditItem && (
+                <EditItem
+                    onClose={hideEditShop}
+                    onCreate={hideEditShop}
+                    itemId={id}
+                />
+            )}
 
-                {!userId || userId != owner ? (
-                    <div className='form-btns'>
-                        <Button variant='dark' onClick={addItemToCart}>
-                            <FontAwesomeIcon icon={faCartShopping} />
-                        </Button>
-                        <Button variant='dark'>
-                            <FontAwesomeIcon icon={faHeart} />
-                        </Button>
-                    </div>
-                ) : (
-                    <div className='form-btns'>
-                        <Button variant='dark'>Edit</Button>
-                        <Button variant='danger'>Delete</Button>
-                    </div>
-                )}
-            </Card.Body>
-        </Card>
+            <Card style={{ width: "18rem" }} key={id}>
+                <Card.Img variant='top' src={image_url} alt={name} />
+                <Card.Body>
+                    <Card.Title>{name}</Card.Title>
+                    <Card.Text>{description}</Card.Text>
+                    <Card.Text>Shop: {shop_name}</Card.Text>
+                    <Card.Text>{price}$</Card.Text>
+
+                    {!userId || userId != owner ? (
+                        <div className='form-btns'>
+                            <Button variant='dark' onClick={addItemToCart}>
+                                <FontAwesomeIcon icon={faCartShopping} />
+                            </Button>
+                            <Button variant='dark'>
+                                <FontAwesomeIcon icon={faHeart} />
+                            </Button>
+                        </div>
+                    ) : (
+                        <div className='form-btns'>
+                            <Button
+                                variant='dark'
+                                onClick={editItemClickHandler}
+                            >
+                                Edit
+                            </Button>
+                            <Button variant='danger'>Delete</Button>
+                        </div>
+                    )}
+                </Card.Body>
+            </Card>
+        </>
     );
 }

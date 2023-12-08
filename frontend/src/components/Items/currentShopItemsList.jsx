@@ -9,6 +9,7 @@ import ItemModal from "./ItemModal";
 export default function CurrentShopItemsList() {
     const [shopItems, setShopItems] = useState([]);
     const [shopDetails, setShopDetails] = useState({});
+    const [itemUpdated, setItemUpdated] = useState(false);
     const { shopId } = useParams();
 
     useEffect(() => {
@@ -18,7 +19,6 @@ export default function CurrentShopItemsList() {
                 setShopItems(itemsData);
 
                 const shopData = await getOneShop(shopId);
-                console.log(shopData.owner);
                 setShopDetails(shopData);
             } catch (error) {
                 console.error(error);
@@ -26,7 +26,11 @@ export default function CurrentShopItemsList() {
         };
 
         fetchData();
-    }, [shopId]);
+    }, [shopId, itemUpdated]);
+
+    const handleItemUpdate = () => {
+        setItemUpdated(!itemUpdated);
+    };
 
     return (
         <div className='background'>
@@ -42,6 +46,7 @@ export default function CurrentShopItemsList() {
                             key={item.id}
                             {...item}
                             owner={shopDetails.owner}
+                            onItemUpdate={handleItemUpdate}
                         />
                     ))
                 )}
