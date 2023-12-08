@@ -25,6 +25,11 @@
 
 .h-100 {
     padding-top: 0 !important;
+    overflow: auto;
+}
+
+.h-100::-webkit-scrollbar {
+    width: 12px;
 }
 
 .total-price,
@@ -40,7 +45,3 @@
 .col-md-3 {
     color: white !important;
 }
-
-/* .empty-text {
-    color: white !important;
-} */

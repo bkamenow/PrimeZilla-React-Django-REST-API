@@ -92,9 +92,32 @@ export const remove = async (itemId, token) => {
             throw new Error(`Request failed with status ${response.status}`);
         }
 
-        return true; // Indicates successful removal
+        return true;
     } catch (error) {
         console.error(error);
         throw error;
     }
 };
+
+// export const update = async (token, itemId) => {
+//     const url = baseURL + `cart-item/${itemId}/`;
+
+//     try {
+//         const response = await fetch(url, {
+//             method: "PUT",
+//             headers: {
+//                 Authorization: `Bearer ${token}`,
+//             },
+//         });
+
+//         if (!response.ok) {
+//             throw new Error(`Request failed with status ${response.status}`);
+//         }
+
+//         const data = await response.json();
+//         return data;
+//     } catch (error) {
+//         console.error(error);
+//         throw error;
+//     }
+// };

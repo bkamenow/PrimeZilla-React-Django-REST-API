@@ -118,3 +118,29 @@ def remove_from_cart(request, item_id):
         return Response(status=status.HTTP_204_NO_CONTENT)
     except CartItem.DoesNotExist:
         return Response({'error': 'Item not found in the cart.'}, status=status.HTTP_404_NOT_FOUND)
+
+
+# @api_view(['PUT'])
+# @permission_classes([IsAuthenticated])
+# def update_cart_item(request, item_id):
+#     print("Item ID:", item_id)
+#     print("USer ID:", request.user.id)
+#     try:
+#         cart_item = CartItem.objects.get(
+#             id=request.user.id, owner=request.user.id)
+
+#         print(request.user)
+#     except CartItem.DoesNotExist:
+#         return Response({'error': 'Cart item not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+#     data = request.data
+#     new_quantity = data.get('quantity', cart_item.quantity)
+
+#     if new_quantity < 0:
+#         return Response({'error': 'Quantity cannot be negative.'}, status=status.HTTP_400_BAD_REQUEST)
+
+#     cart_item.quantity = new_quantity
+#     cart_item.save()
+
+#     serializer = CartItemSerializer(cart_item)
+#     return Response(serializer.data, status=status.HTTP_200_OK)
