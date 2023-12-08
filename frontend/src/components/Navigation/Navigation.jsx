@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import AuthContext from "../../context/AuthContext";
@@ -129,7 +129,10 @@ export default function Navigation() {
                                     >
                                         Create Shop
                                     </NavDropdown.Item>
-                                    <NavDropdown.Item href='/your-shops'>
+                                    <NavDropdown.Item
+                                        as={Link}
+                                        to='/your-shops'
+                                    >
                                         Your Shops
                                     </NavDropdown.Item>
                                     <NavDropdown.Divider />
