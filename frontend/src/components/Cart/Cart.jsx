@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { getAll, getItemDetails, remove } from "../../services/cartService";
+import { useCart } from "../../context/CartContext";
 import Path from "../../paths";
 
 import "./Cart.css";
@@ -11,6 +12,7 @@ import Button from "react-bootstrap/Button";
 export default function Cart() {
     const [cartItems, setCartItems] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
+    const { cartChange } = useCart();
     const accessToken = JSON.parse(localStorage.getItem("authTokens")).access;
 
     useEffect(() => {
@@ -54,16 +56,10 @@ export default function Cart() {
             setCartItems((prevCartItems) =>
                 prevCartItems.filter((item) => item.id !== itemId)
             );
+            cartChange({ id: itemId, quantity: 0, price: 0 });
         } catch (error) {
             console.error(error);
         }
-    };
-
-    const calculateTotal = (items) => {
-        return items.reduce(
-            (total, item) => total + item.price * item.quantity,
-            0
-        );
     };
 
     return (

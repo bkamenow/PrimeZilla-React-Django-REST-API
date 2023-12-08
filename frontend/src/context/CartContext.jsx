@@ -4,7 +4,7 @@ const CartContext = createContext();
 
 const cartReducer = (state, action) => {
     switch (action.type) {
-        case "ADD_TO_CART":
+        case "CART_CHANGE":
             return {
                 ...state,
                 items: [...state.items, action.payload],
@@ -18,12 +18,12 @@ const cartReducer = (state, action) => {
 const CartProvider = ({ children }) => {
     const [cartState, dispatch] = useReducer(cartReducer, { items: [] });
 
-    const addToCart = (item) => {
-        dispatch({ type: "ADD_TO_CART", payload: item });
+    const cartChange = (item) => {
+        dispatch({ type: "CART_CHANGE", payload: item });
     };
 
     return (
-        <CartContext.Provider value={{ cartState, addToCart }}>
+        <CartContext.Provider value={{ cartState, cartChange }}>
             {children}
         </CartContext.Provider>
     );

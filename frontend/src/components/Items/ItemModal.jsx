@@ -26,12 +26,12 @@ export default function ItemModal({
     const accessToken = authTokens ? authTokens.access : null;
     const [showEditItem, setShowEditItem] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
-    const { addToCart } = useCart();
+    const { cartChange } = useCart();
 
     const addItemToCart = async () => {
         try {
             const result = await add(userId, id, 1, accessToken);
-            addToCart(result.data);
+            cartChange(result.data);
             return result.data;
         } catch (error) {
             console.error("Error adding to cart:", error);
