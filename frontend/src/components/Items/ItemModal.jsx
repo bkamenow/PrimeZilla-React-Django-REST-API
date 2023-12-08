@@ -82,7 +82,7 @@ export default function ItemModal({
                     <Card.Text>Shop: {shop_name}</Card.Text>
                     <Card.Text>{price}$</Card.Text>
 
-                    {!userId || userId !== owner ? (
+                    {!userId || userId != owner ? (
                         <div className='form-btns'>
                             <Button variant='dark' onClick={addItemToCart}>
                                 <FontAwesomeIcon icon={faCartShopping} />

@@ -110,6 +110,10 @@ span.input-group-addon {
 
 }
 
+.mb-3 {
+    margin-left: 2rem;
+}
+
 .form-btns {
     display: flex;
     gap: 10px;

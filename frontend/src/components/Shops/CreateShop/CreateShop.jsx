@@ -28,7 +28,7 @@ export default function CreateShop({ onClose, onCreate }) {
     };
 
     return (
-        <div className='overlay' onClick={onClose}>
+        <div className='overlay'>
             <div className='form-box' onClick={(e) => e.stopPropagation()}>
                 <div className='form-header'>
                     <h3>Create Shop</h3>

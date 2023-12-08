@@ -43,13 +43,13 @@ export default function EditUser({ userId, onClose }) {
     const { values, onChange, onSubmit } = useForm(editUserSubmitHandler, user);
 
     return (
-        <div className='overlay' onClick={onClose}>
+        <div className='overlay'>
             <div
                 className='form-box edit-from-box'
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className='form-header'>
-                    <h3>Edit</h3>
+                    <h3>Edit Profile</h3>
                 </div>
 
                 <Form onSubmit={onSubmit}>
@@ -80,10 +80,14 @@ export default function EditUser({ userId, onClose }) {
                             onChange={onChange}
                         />
                     </Form.Group>
-
-                    <Button variant='dark' type='submit'>
-                        Save
-                    </Button>
+                    <div className='form-btns'>
+                        <Button variant='dark' type='submit'>
+                            Save
+                        </Button>
+                        <Button variant='dark' type='button' onClick={onClose}>
+                            Back
+                        </Button>
+                    </div>
                 </Form>
             </div>
         </div>

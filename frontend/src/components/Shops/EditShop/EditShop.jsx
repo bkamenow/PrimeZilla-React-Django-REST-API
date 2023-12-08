@@ -39,7 +39,7 @@ export default function EditShop({ onClose, shopId }) {
 
     return (
         <>
-            <div className='overlay' onClick={onClose}>
+            <div className='overlay'>
                 <div className='form-box' onClick={(e) => e.stopPropagation()}>
                     <div className='form-header'>
                         <h3>Edit Shop</h3>

@@ -30,7 +30,7 @@ export default function CreateItem({ shopId, shopName, onCreate, onClose }) {
     };
 
     return (
-        <div className='overlay' onClick={onClose}>
+        <div className='overlay'>
             <div className='form-box' onClick={(e) => e.stopPropagation()}>
                 <div className='form-header'>
                     <h3>Create Item</h3>
