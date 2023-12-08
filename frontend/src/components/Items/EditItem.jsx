@@ -42,7 +42,7 @@ export default function EditItem({ onClose, itemId }) {
         <div className='overlay' onClick={onClose}>
             <div className='form-box' onClick={(e) => e.stopPropagation()}>
                 <div className='form-header'>
-                    <h3>Edit Item</h3>
+                    <h3 className='edit-item-h3'>Edit Item</h3>
                 </div>
                 <Form onSubmit={onSubmit}>
                     <Form.Group className='mb-3'>

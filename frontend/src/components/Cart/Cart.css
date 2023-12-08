@@ -10,7 +10,7 @@
 }
 
 .cart-main {
-    min-height: 1000px;
+    min-height: 780px;
 }
 
 .rounded-3 {
@@ -40,3 +40,7 @@
 .col-md-3 {
     color: white !important;
 }
+
+/* .empty-text {
+    color: white !important;
+} */
