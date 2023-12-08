@@ -84,3 +84,27 @@ export const editItem = async (itemId, itemData) => {
         throw error;
     }
 };
+
+export const deleteItem = async (itemId) => {
+    const url = baseURL + `items/${itemId}/`;
+
+    try {
+        const response = await fetch(url, {
+            method: "DELETE",
+        });
+
+        if (response.status === 204) {
+            return null;
+        }
+
+        if (!response.ok) {
+            throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};

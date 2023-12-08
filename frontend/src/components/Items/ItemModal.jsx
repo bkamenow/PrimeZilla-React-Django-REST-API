@@ -9,6 +9,7 @@ import { faCartShopping, faHeart } from "@fortawesome/free-solid-svg-icons";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import EditItem from "./EditItem";
+import DeleteItem from "./DeleteItem";
 
 export default function ItemModal({
     id,
@@ -23,6 +24,7 @@ export default function ItemModal({
     const userId = localStorage.getItem("userId");
     const accessToken = JSON.parse(localStorage.getItem("authTokens")).access;
     const [showEditItem, setShowEditItem] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     const addItemToCart = async () => {
         try {
@@ -42,6 +44,15 @@ export default function ItemModal({
         onItemUpdate();
     }, [onItemUpdate]);
 
+    const handleDeleteItemClick = useCallback(() => {
+        setIsDeleting(true);
+    }, []);
+
+    const handleDeleteItemClose = useCallback(() => {
+        setIsDeleting(false);
+        onItemUpdate();
+    }, [onItemUpdate]);
+
     return (
         <>
             {showEditItem && (
@@ -49,6 +60,14 @@ export default function ItemModal({
                     onClose={hideEditShop}
                     onCreate={hideEditShop}
                     itemId={id}
+                />
+            )}
+            {isDeleting && (
+                <DeleteItem
+                    onClose={handleDeleteItemClose}
+                    itemId={id}
+                    itemName={name}
+                    onDelete={handleDeleteItemClose}
                 />
             )}
 
@@ -77,7 +96,12 @@ export default function ItemModal({
                             >
                                 Edit
                             </Button>
-                            <Button variant='danger'>Delete</Button>
+                            <Button
+                                variant='danger'
+                                onClick={handleDeleteItemClick}
+                            >
+                                Delete
+                            </Button>
                         </div>
                     )}
                 </Card.Body>
