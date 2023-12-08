@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-import CloseButton from "react-bootstrap/CloseButton";
 import { getAll, getItemDetails, remove } from "../../services/cartService";
+import Path from "../../paths";
+
 import "./Cart.css";
+import CloseButton from "react-bootstrap/CloseButton";
+import Button from "react-bootstrap/Button";
 
 export default function Cart() {
     const [cartItems, setCartItems] = useState([]);
@@ -74,6 +78,13 @@ export default function Cart() {
                                 {cartItems.length === 0 ? (
                                     <div className='text-center empty-text'>
                                         <h3>Your cart is empty!</h3>
+                                        <Button
+                                            variant='success'
+                                            as={Link}
+                                            to={Path.AllItems}
+                                        >
+                                            Go Shopping
+                                        </Button>
                                     </div>
                                 ) : (
                                     <>

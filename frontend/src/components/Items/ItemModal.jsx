@@ -22,7 +22,8 @@ export default function ItemModal({
     onItemUpdate,
 }) {
     const userId = localStorage.getItem("userId");
-    const accessToken = JSON.parse(localStorage.getItem("authTokens")).access;
+    const authTokens = JSON.parse(localStorage.getItem("authTokens"));
+    const accessToken = authTokens ? authTokens.access : null;
     const [showEditItem, setShowEditItem] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
 
@@ -79,7 +80,7 @@ export default function ItemModal({
                     <Card.Text>Shop: {shop_name}</Card.Text>
                     <Card.Text>{price}$</Card.Text>
 
-                    {!userId || userId != owner ? (
+                    {!userId || userId !== owner ? (
                         <div className='form-btns'>
                             <Button variant='dark' onClick={addItemToCart}>
                                 <FontAwesomeIcon icon={faCartShopping} />
