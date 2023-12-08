@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import AuthContext from "../../context/AuthContext";
+import Path from "../../paths";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -94,23 +95,23 @@ export default function Navigation() {
                         <img src='/public/images/logo.png' alt='logo' />
                     </Navbar.Brand>
                     <Nav className='me-auto'>
-                        <Nav.Link as={Link} to='/'>
+                        <Nav.Link as={Link} to={Path.Home}>
                             Home
                         </Nav.Link>
-                        <Nav.Link as={Link} to='/shops-list'>
+                        <Nav.Link as={Link} to={Path.Shops}>
                             Shops
                         </Nav.Link>
-                        <Nav.Link as={Link} to='/all-items'>
+                        <Nav.Link as={Link} to={Path.AllItems}>
                             All Items
                         </Nav.Link>
                     </Nav>
                     <Nav>
                         {authTokens ? (
                             <>
-                                <Nav.Link as={Link} to='/cart'>
+                                <Nav.Link as={Link} to={Path.Cart}>
                                     <FontAwesomeIcon icon={faCartShopping} />
                                 </Nav.Link>
-                                <Nav.Link as={Link} to='#favorites'>
+                                <Nav.Link as={Link} to='/favorites'>
                                     <FontAwesomeIcon icon={faHeart} />
                                 </Nav.Link>
                                 <NavDropdown
@@ -131,7 +132,7 @@ export default function Navigation() {
                                     </NavDropdown.Item>
                                     <NavDropdown.Item
                                         as={Link}
-                                        to='/your-shops'
+                                        to={Path.YourShops}
                                     >
                                         Your Shops
                                     </NavDropdown.Item>

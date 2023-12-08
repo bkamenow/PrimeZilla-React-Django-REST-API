@@ -1,5 +1,10 @@
 import { Routes, Route } from "react-router-dom";
+
 import "./App.css";
+
+import { AuthProvider } from "./context/AuthContext";
+import Path from "./paths";
+
 import Footer from "./components/Footer/Footer";
 import Navigation from "./components/Navigation/Navigation";
 import ShopsList from "./components/Shops/ShopsList/ShopsList";
@@ -10,24 +15,22 @@ import OwnerShopsList from "./components/Shops/OwnerShopsList/OwnerShopsList";
 import Error404 from "./components/404/404";
 import Cart from "./components/Cart/Cart";
 
-import { AuthProvider } from "./context/AuthContext";
-
 function App() {
     return (
         <div className='back'>
             <AuthProvider>
                 <Navigation />
                 <Routes>
-                    <Route path='/' element={<Home />} />
-                    <Route path='/shops-list' element={<ShopsList />} />
-                    <Route path='/your-shops' element={<OwnerShopsList />} />
+                    <Route path={Path.Home} element={<Home />} />
+                    <Route path={Path.Shops} element={<ShopsList />} />
+                    <Route path={Path.YourShops} element={<OwnerShopsList />} />
                     <Route
-                        path='/items/:shopId'
+                        path={Path.ShopItems}
                         element={<CurrentShopItemsList />}
                     />
-                    <Route path='/all-items' element={<ItemsList />} />
-                    <Route path='/*' element={<Error404 />} />
-                    <Route path='/cart' element={<Cart />} />
+                    <Route path={Path.AllItems} element={<ItemsList />} />
+                    <Route path={Path.Error} element={<Error404 />} />
+                    <Route path={Path.Cart} element={<Cart />} />
                 </Routes>
                 <Footer />
             </AuthProvider>
